@@ -5,13 +5,18 @@ https://brew.sh
 git
 brew install git
 
-
 python3
 https://docs.python-guide.org/starting/install3/osx/
 brew install python
 
 node
 brew install node
+
+ffmpeg
+brew install ffmpeg
+
+iterm2
+https://www.iterm2.com/downloads.html
 
 mas
 https://github.com/mas-cli/mas
@@ -39,3 +44,13 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 
 vscode
 https://code.visualstudio.com/docs/?dv=osx
+
+vlc
+https://get.videolan.org/vlc/3.0.8/macosx/vlc-3.0.8.dmg
+
+
+discord
+
+chrome
+
+g++
