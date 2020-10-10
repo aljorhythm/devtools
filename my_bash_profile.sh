@@ -1,3 +1,5 @@
+echo running my_bash_profile
+
 # nvm
 export NVM_DIR=~/.nvm
 source $(brew --prefix nvm)/nvm.sh
