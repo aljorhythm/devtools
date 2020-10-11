@@ -13,6 +13,9 @@ export PKG_CONFIG_PATH="/usr/local/opt/ruby/lib/pkgconfig"
 # open applications
 alias vscode="open -a /Applications/Visual\ Studio\ Code.app/"
 
+# sourcetree
+alias sourcetree="open -a /Applications/Sourcetree.app/"
+
 # nodemon
 monpy() {
     nodemon --watch "$1" --exec "python $1" 
