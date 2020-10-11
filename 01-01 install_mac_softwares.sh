@@ -11,3 +11,4 @@ function install {
 install "telegram"
 install "whatsapp for desktop"
 install "slack"
+install "twitter"

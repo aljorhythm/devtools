@@ -43,4 +43,4 @@ brew install ruby
 # sign in on App Store if you are on a mac
 
 # mac 
-sh mas.sh
+sh '01-01 install_mac_softwares.sh'
