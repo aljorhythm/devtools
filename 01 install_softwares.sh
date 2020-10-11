@@ -12,6 +12,9 @@ brew install git
 # https://docs.python-guide.org/starting/install3/osx/
 brew install python
 
+# python pyenv
+brew install pyenv
+
 # node
 brew install node
 
