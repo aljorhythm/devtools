@@ -1,12 +1,12 @@
 #!/bin/bash
 set -x #echo on
 
+#xcode
+xcode-select --install
+
 # brew
 # https://brew.sh
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-
-# git
-brew install git
 
 # python3
 # https://docs.python-guide.org/starting/install3/osx/
@@ -39,8 +39,8 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 # node nvm
 brew install nvm
 
-# ruby
-brew install ruby
+# ruby rvm
+\curl -sSL https://get.rvm.io | bash -s stable
 
 ## LAST
 # sign in on App Store if you are on a mac

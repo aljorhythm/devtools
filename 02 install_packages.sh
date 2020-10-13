@@ -9,3 +9,8 @@ npm install -g nodemon youtube-dl create-react-app git-open gitignore
 
 pyenv install 3.7.2
 pyenv which python
+
+# ruby
+
+rvm install 2.7.2
+rvm use 2.7.2

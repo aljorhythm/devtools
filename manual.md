@@ -18,3 +18,6 @@ https://get.videolan.org/vlc/3.0.8/macosx/vlc-3.0.8.dmg
 
 # spotify
 https://www.spotify.com
+
+# last pass
+last pass
