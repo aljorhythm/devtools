@@ -12,6 +12,12 @@ xcode-select --install
 # https://docs.python-guide.org/starting/install3/osx/
 brew install python
 
+# yarn
+brew install yarn
+
+# postgresql
+brew install postgresql
+
 # python pyenv
 brew install pyenv
 
@@ -41,6 +47,9 @@ brew install nvm
 
 # ruby rvm
 \curl -sSL https://get.rvm.io | bash -s stable
+
+# heroku
+brew tap heroku/brew && brew install heroku
 
 ## LAST
 # sign in on App Store if you are on a mac
