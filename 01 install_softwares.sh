@@ -45,8 +45,12 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 # node nvm
 brew install nvm
 
-# ruby rvm
-\curl -sSL https://get.rvm.io | bash -s stable
+# tree
+brew install tree
+
+# RVM experience was hell
+brew install rbenv
+rbenv init
 
 # heroku
 brew tap heroku/brew && brew install heroku
