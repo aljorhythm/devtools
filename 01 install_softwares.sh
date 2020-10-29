@@ -1,4 +1,6 @@
 #!/bin/bash
+# SIGN IN MANUALLY on App Store if you are on a mac before executing
+
 set -x #echo on
 
 #xcode
@@ -56,7 +58,7 @@ rbenv init
 brew tap heroku/brew && brew install heroku
 
 ## LAST
-# sign in on App Store if you are on a mac
+# SIGN IN MANUALLY on App Store if you are on a mac before executing
 
 # mac 
 sh '01-01 install_mac_softwares.sh'
