@@ -14,6 +14,10 @@ xcode-select --install
 # https://docs.python-guide.org/starting/install3/osx/
 brew install python
 
+# line endings
+brew install dos2unix
+brew install unix2dox
+
 # yarn
 brew install yarn
 
