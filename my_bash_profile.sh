@@ -11,15 +11,17 @@ alias docker-reset='docker-stop && docker-rmc && docker-rmi'
 
 alias ls-files='find $(pwd) -type f'
 alias workspace="cd ~/git"
-ln -s ~/Library/Mobile\ Documents/com\~apple\~CloudDocs ~/iCloud
+alias ws='cd ~/git'
 alias icloud='cd ~/iCloud'
 alias downloads="cd ~/Downloads"
 alias copyssh='cat ~/.ssh/id_rsa.pub | pbcopy'
 alias copypath='pwd | pbcopy'
+alias st='open -a /Applications/Sourcetree.app'
+alias vs='open -a /Applications/Visual\ Studio\ Code.app/'
 
 # nvm
-export NVM_DIR=~/.nvm
-source $(brew --prefix nvm)/nvm.sh
+# export NVM_DIR=~/.nvm
+# source $(brew --prefix nvm)/nvm.sh
 
 # open applications
 alias vscode="open -a /Applications/Visual\ Studio\ Code.app/"
@@ -42,14 +44,18 @@ monrb() {
 
 # git
 alias checkout="git checkout"
+alias push="git push"
+alias pull="git pull"
+
+alias cphash="git rev-parse --short HEAD | pbcopy"
 
 # flutter
 export PATH="$PATH:~/git/flutter/bin"
 
 # pyenv
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
+# if command -v pyenv 1>/dev/null 2>&1; then
+#   eval "$(pyenv init -)"
+# fi
 
 # rbenv
 eval "$(rbenv init -)"
@@ -58,6 +64,3 @@ eval "$(rbenv init -)"
 eval "$(ssh-agent -s)"
 ssh-add -K ~/.ssh/id_rsa
 ssh-add -L
-
-echo "calling circles_mbp.sh"
-source ~/circles_mbp.sh
