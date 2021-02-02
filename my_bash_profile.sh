@@ -47,8 +47,12 @@ alias checkout="git checkout"
 alias push="git push"
 alias pull="git pull"
 
-alias cphash="git rev-parse --short HEAD | pbcopy"
+# alias cphash="git rev-parse --short HEAD | pbcopy"
 
+cphash() {
+    echo copying $(git rev-parse --short HEAD)
+    git rev-parse --short HEAD | pbcopy
+}
 # flutter
 export PATH="$PATH:~/git/flutter/bin"
 
