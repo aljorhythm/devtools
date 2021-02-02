@@ -59,6 +59,7 @@ export PATH="$PATH:~/git/flutter/bin"
 
 # rbenv
 eval "$(rbenv init -)"
+# export PATH="$PATH:~/.gem/ruby/2.6.0/bin"
 
 # ssh
 eval "$(ssh-agent -s)"
