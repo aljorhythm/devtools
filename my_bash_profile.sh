@@ -43,7 +43,7 @@ monrb() {
 }
 
 # git
-alias githome="git rev-parse --show-toplevel"
+alias githome="cd $(git rev-parse --show-toplevel)"
 alias checkout="git checkout"
 alias push="git push"
 alias pull="git pull"
