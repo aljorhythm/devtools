@@ -15,9 +15,9 @@ alias ws='cd ~/git'
 alias icloud='cd ~/iCloud'
 alias downloads="cd ~/Downloads"
 alias copyssh='cat ~/.ssh/id_rsa.pub | pbcopy'
-alias copypath='pwd | pbcopy'
 alias st='open -a /Applications/Sourcetree.app'
 alias vs='open -a /Applications/Visual\ Studio\ Code.app/'
+alias rbmine='open /Applications/RubyMine.app/'
 
 # nvm
 # export NVM_DIR=~/.nvm
@@ -43,17 +43,28 @@ monrb() {
 }
 
 # git
-alias githome="cd $(git rev-parse --show-cdup)"
+alias flyhome='cd "$(git rev-parse --show-toplevel)"'
 alias checkout="git checkout"
 alias push="git push"
 alias pull="git pull"
 
 # alias cphash="git rev-parse --short HEAD | pbcopy"
 
-cphash() {
+copypath() {
+    echo copying "$(pwd)"
+    pwd | pbcopy
+}
+
+copyhash() {
     echo copying $(git rev-parse --short HEAD)
     git rev-parse --short HEAD | pbcopy
 }
+
+copybranch() {
+    echo copying $(git branch --show-current)
+    git branch --show-current | pbcopy
+}
+
 # flutter
 export PATH="$PATH:~/git/flutter/bin"
 
