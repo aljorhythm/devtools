@@ -42,6 +42,11 @@ monrb() {
     nodemon -L --ext ".rb" --exec "ruby $1"
 }
 
+formatrb() {
+    FILES="$(git diff --cached --name-only --diff-filter=AMC | grep "\.rb$" | tr '\n' ' ')"
+    bin/bundle exec rubocop -a ${FILES}
+}
+
 # git
 alias flyhome='cd "$(git rev-parse --show-toplevel)"'
 alias checkout="git checkout"
