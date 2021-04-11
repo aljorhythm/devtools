@@ -53,6 +53,8 @@ alias checkout="git checkout"
 alias commit="git commit -m "
 alias push="git push"
 alias pull="git pull"
+alias add="git add"
+alias status="git status"
 
 # alias cphash="git rev-parse --short HEAD | pbcopy"
 
