@@ -5,7 +5,7 @@ echo docker shortcuts
 alias docker-rmi='docker rmi $(docker images -a -q)'
 alias docker-stop='docker stop $(docker ps -aq)'
 alias docker-rmc='docker container rm $(docker container ls -aq)'
-alias docker-reset='docker-stop && docker-rmc && docker-rmi'
+alias docker-reset='docker-stop && docker-rmc && docker-rmi && docker system prune'
 
 # general shortcuts
 

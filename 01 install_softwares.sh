@@ -51,6 +51,9 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 # node nvm
 brew install nvm
 
+# github cli
+brew install gh
+
 # tree
 brew install tree
 
