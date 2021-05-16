@@ -59,6 +59,9 @@ alias pull="git pull"
 alias add="git add"
 alias status="git status"
 
+# golang
+alias go-clean="go clean -i -testcache -modcache -x -r -cache"
+
 # make
 alias mut="make unit_test"
 
@@ -115,3 +118,5 @@ eval "$(rbenv init -)"
 eval "$(ssh-agent -s)"
 ssh-add -K ~/.ssh/id_rsa
 ssh-add -L
+
+source $HOME/.cargo/env

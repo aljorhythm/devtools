@@ -64,6 +64,9 @@ rbenv init
 # heroku
 brew tap heroku/brew && brew install heroku
 
+# rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
 ## LAST
 # SIGN IN MANUALLY on App Store if you are on a mac before executing
 
