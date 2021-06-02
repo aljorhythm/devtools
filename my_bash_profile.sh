@@ -15,7 +15,7 @@ alias ws='cd ~/git'
 alias icloud='cd ~/iCloud'
 alias downloads="cd ~/Downloads"
 alias copyssh='cat ~/.ssh/id_rsa.pub | pbcopy'
-alias st='open -a /Applications/Sourcetree.app'
+alias st='open -a /Applications/Sourcetree.app "$(git rev-parse --show-toplevel)"'
 alias vs='open -a /Applications/Visual\ Studio\ Code.app/'
 alias rbmine='open /Applications/RubyMine.app/'
 
@@ -50,6 +50,7 @@ formatrb() {
 # git
 alias flyhome='cd "$(git rev-parse --show-toplevel)"'
 alias checkout="git checkout"
+alias co="git checkout"
 alias fetch="git fetch"
 alias co="git checkout"
 alias commit="git commit -m "
@@ -65,19 +66,22 @@ alias go-clean="go clean -i -testcache -modcache -x -r -cache"
 # make
 alias mut="make unit_test"
 
-# alias cphash="git rev-parse --short HEAD | pbcopy"
-
-copypath() {
+cppath() {
     echo copying "$(pwd)"
     pwd | pbcopy
 }
 
-copyhash() {
+cphash() {
     echo copying $(git rev-parse --short HEAD)
     git rev-parse --short HEAD | pbcopy
 }
 
-copybranch() {
+cplast(){
+    echo "!!" | pbcopy
+    echo copied last cmd
+}
+
+cpbranch() {
     echo copying $(git branch --show-current)
     git branch --show-current | pbcopy
 }
