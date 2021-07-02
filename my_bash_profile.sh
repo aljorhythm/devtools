@@ -54,9 +54,15 @@ formatrb() {
 # git
 alias flyhome='cd "$(git rev-parse --show-toplevel)"'
 alias checkout="git checkout"
-alias fetch="git fetch"
 alias co="git checkout"
+alias fetch="git fetch"
 alias commit="git commit -m "
+alias stash="git stash"
+alias pop="git stash pop"
+
+function upstream() {
+    git push --set-upstream $1 $(git_current_branch)
+}
 
 function cm() {
     echo Commit message:
@@ -102,8 +108,7 @@ alias status="git status"
 alias s="git status -sb"
 
 # merge
-alias mreset="git merge --reset"
-
+alias gms="git merge --reset"
 
 # golang
 alias go-clean="go clean -i -testcache -modcache -x -r -cache"
@@ -125,6 +130,11 @@ function cphash() {
 function cpbranch() {
     echo copying $(git branch --show-current)
     git branch --show-current | pbcopy
+}
+
+function cphb() {
+    cphash
+    cpbranch
 }
 
 function checkremotes() {
