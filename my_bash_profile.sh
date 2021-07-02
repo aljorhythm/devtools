@@ -87,7 +87,12 @@ alias pull="git pull"
 
 # add
 alias add="git add"
-alias a="git add . && git status -sb"
+
+function a() {
+    git status -sb
+    echo "git add ."
+    git add . && git status -sb
+}
 
 # status
 alias status="git status"
