@@ -61,8 +61,11 @@ alias commit="git commit -m "
 function cm() {
     echo Commit message:
     read message
-    git commit -m "${message}" --no-verify
+    git commit -m "${message}"
 }
+
+# commit push
+alias cmgp="cm && p"
 
 # commit force
 function cf() {
@@ -70,6 +73,8 @@ function cf() {
     read message
     git commit -m "${message}" --no-verify
 }
+
+alias cfp="cf && p"
 
 # push
 alias push="git push"
