@@ -54,16 +54,45 @@ formatrb() {
 # git
 alias flyhome='cd "$(git rev-parse --show-toplevel)"'
 alias checkout="git checkout"
-alias co="git checkout"
 alias fetch="git fetch"
 alias co="git checkout"
 alias commit="git commit -m "
-alias cm="git commit -m "
-alias cmnv="git commit --no-verify -m"
+
+cm() {
+    echo Commit message:
+    read message
+    git commit -m "${message}" --no-verify
+}
+
+# commit force
+alias cf="git commit --no-verify -m"
+
+cf() {
+    echo Commit message:
+    read message
+    git commit -m "${message}" --no-verify
+}
+
+# push
 alias push="git push"
+alias p="git push"
+
+# pull
+alias pu="git pull"
+alias gpl="git pull"
 alias pull="git pull"
+
+# add
 alias add="git add"
+alias a="git add ."
+
+# status
 alias status="git status"
+alias s="git status -sb"
+
+# merge
+alias mreset="git merge --reset"
+
 
 # golang
 alias go-clean="go clean -i -testcache -modcache -x -r -cache"
