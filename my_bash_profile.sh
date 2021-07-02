@@ -84,13 +84,16 @@ alias p="git push"
 alias pu="git pull"
 alias gpl="git pull"
 alias pull="git pull"
+alias dl="git pull"
 
 # add
 alias add="git add"
 
 function a() {
     git status -sb
-    echo "git add ."
+    echo
+    echo "---------------"
+    echo
     git add . && git status -sb
 }
 
