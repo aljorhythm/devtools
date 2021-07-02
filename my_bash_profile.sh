@@ -34,6 +34,10 @@ monpy() {
     nodemon -L --watch "$1" --exec "python $1" 
 }
 
+monpy3() {
+    nodemon -L --watch "$1" --exec "python3 $1" 
+}
+
 nmongo() {
     nodemon -L --ext ".go" --exec "go run main.go"
 }
@@ -125,3 +129,8 @@ ssh-add -K ~/.ssh/id_rsa
 ssh-add -L
 
 source $HOME/.cargo/env
+
+Kaizen, in big and small ways. 
+
+We recognise that the path to achieving our mission is going to involve its fair share of twists and turns, requiring us to continuously adapt to new information and changing circumstances. Kaizen is the spirit of adaptability that Grab needs to navigate this winding road. Adaptability implies that we inspire and encourage our colleagues to solve problems as they arise. It implies that we constantly improve how we work. And it implies that we seek disruptive innovations to continue to advance our mission.
+In an organisation that is growing as fast as ours, it is easy to neglect the spirit of adaptability. When busyness kicks in, reflection, ideation, and experimentation are often replaced by blame, pressure, and a fear of failure. Instead, we have to remain steadfast in seeking help and feedback, reflecting on our impact, ideating, problem-solving as a team, and experimenting with courage. With experimentation will come failure - that’s okay, as long as we own up to and learn from our mistakes. 
