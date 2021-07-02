@@ -14,7 +14,7 @@ alias workspace="cd ~/git"
 alias ws='cd ~/git'
 alias icloud='cd ~/iCloud'
 alias downloads="cd ~/Downloads"
-alias copyssh='cat ~/.ssh/id_rsa.pub | pbcopy'
+alias cpssh='cat ~/.ssh/id_rsa.pub | pbcopy'
 alias st='open -a /Applications/Sourcetree.app "$(git rev-parse --show-toplevel)"'
 alias vs='open -a /Applications/Visual\ Studio\ Code.app/'
 alias rbmine='open /Applications/RubyMine.app/'
@@ -58,16 +58,14 @@ alias fetch="git fetch"
 alias co="git checkout"
 alias commit="git commit -m "
 
-cm() {
+function cm() {
     echo Commit message:
     read message
     git commit -m "${message}" --no-verify
 }
 
 # commit force
-alias cf="git commit --no-verify -m"
-
-cf() {
+function cf() {
     echo Commit message:
     read message
     git commit -m "${message}" --no-verify
@@ -84,7 +82,7 @@ alias pull="git pull"
 
 # add
 alias add="git add"
-alias a="git add ."
+alias a="git add . && git status -sb"
 
 # status
 alias status="git status"
@@ -105,22 +103,18 @@ cppath() {
     pwd | pbcopy
 }
 
-cphash() {
+# copy hash copy branch
+function cphash() {
     echo copying $(git rev-parse --short HEAD)
     git rev-parse --short HEAD | pbcopy
 }
 
-cplast(){
-    echo "!!" | pbcopy
-    echo copied last cmd
-}
-
-cpbranch() {
+function cpbranch() {
     echo copying $(git branch --show-current)
     git branch --show-current | pbcopy
 }
 
-checkremotes() {
+function checkremotes() {
     echo "checking git remotes"
     git fetch
 
@@ -158,8 +152,3 @@ ssh-add -K ~/.ssh/id_rsa
 ssh-add -L
 
 source $HOME/.cargo/env
-
-Kaizen, in big and small ways. 
-
-We recognise that the path to achieving our mission is going to involve its fair share of twists and turns, requiring us to continuously adapt to new information and changing circumstances. Kaizen is the spirit of adaptability that Grab needs to navigate this winding road. Adaptability implies that we inspire and encourage our colleagues to solve problems as they arise. It implies that we constantly improve how we work. And it implies that we seek disruptive innovations to continue to advance our mission.
-In an organisation that is growing as fast as ours, it is easy to neglect the spirit of adaptability. When busyness kicks in, reflection, ideation, and experimentation are often replaced by blame, pressure, and a fear of failure. Instead, we have to remain steadfast in seeking help and feedback, reflecting on our impact, ideating, problem-solving as a team, and experimenting with courage. With experimentation will come failure - that’s okay, as long as we own up to and learn from our mistakes. 
