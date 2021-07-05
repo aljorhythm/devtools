@@ -6,6 +6,8 @@ alias docker-rmi='docker rmi $(docker images -a -q)'
 alias docker-stop='docker stop $(docker ps -aq)'
 alias docker-rmc='docker container rm $(docker container ls -aq)'
 alias docker-reset='docker system prune -f && docker-stop && docker-rmc && docker-rmi'
+alias dcu="docker compose up"
+alias dcd="docker compose down"
 
 # general shortcuts
 
@@ -59,11 +61,15 @@ alias fetch="git fetch"
 alias commit="git commit -m "
 alias stash="git stash"
 alias pop="git stash pop"
+alias merge="git merge"
+alias m="git merge"
+alias ms="git merge reset"
 
 function upstream() {
     git push --set-upstream $1 $(git_current_branch)
 }
 
+# commit
 function cm() {
     echo Commit message:
     read message
@@ -72,8 +78,9 @@ function cm() {
 
 # commit push
 alias cmgp="cm && p"
+alias cgp="cm && p"
 
-# commit force
+# commit force (no verify)
 function cf() {
     echo Commit message:
     read message
