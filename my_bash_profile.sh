@@ -64,6 +64,8 @@ alias pop="git stash pop"
 alias merge="git merge"
 alias m="git merge"
 alias ms="git merge reset"
+alias gpo="git pull origin"
+alias gpod="git pull origin develop"
 
 function upstream() {
     git push --set-upstream $1 $(git_current_branch)
