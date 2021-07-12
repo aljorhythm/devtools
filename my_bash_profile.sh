@@ -103,6 +103,7 @@ alias dl="git pull"
 
 # add
 alias add="git add"
+alias sts="git status -sb"
 
 function a() {
     git status -sb
