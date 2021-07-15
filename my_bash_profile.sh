@@ -20,10 +20,13 @@ alias cpssh='cat ~/.ssh/id_rsa.pub | pbcopy'
 alias st='open -a /Applications/Sourcetree.app "$(git rev-parse --show-toplevel)"'
 alias vs='open -a /Applications/Visual\ Studio\ Code.app/'
 alias rbmine='open /Applications/RubyMine.app/'
-
+alias gop='git-open'
+echo nvm
 # nvm
-export NVM_DIR=$(brew --prefix nvm)
-source $NVM_DIR/nvm.sh
+# export NVM_DIR=$(brew --prefix nvm)
+# source $NVM_DIR/nvm.sh
+export NVM_DIR=~/.nvm
+source $(brew --prefix nvm)/nvm.sh
 
 # open applications
 alias vscode="open -a /Applications/Visual\ Studio\ Code.app/"
