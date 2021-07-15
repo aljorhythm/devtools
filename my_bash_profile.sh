@@ -25,8 +25,8 @@ echo nvm
 # nvm
 # export NVM_DIR=$(brew --prefix nvm)
 # source $NVM_DIR/nvm.sh
-export NVM_DIR=~/.nvm
-source $(brew --prefix nvm)/nvm.sh
+# export NVM_DIR=~/.nvm
+# source $(brew --prefix nvm)/nvm.sh
 
 # open applications
 alias vscode="open -a /Applications/Visual\ Studio\ Code.app/"
