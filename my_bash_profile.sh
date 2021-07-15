@@ -22,8 +22,8 @@ alias vs='open -a /Applications/Visual\ Studio\ Code.app/'
 alias rbmine='open /Applications/RubyMine.app/'
 
 # nvm
-# export NVM_DIR=~/.nvm
-# source $(brew --prefix nvm)/nvm.sh
+export NVM_DIR=$(brew --prefix nvm)
+source $NVM_DIR/nvm.sh
 
 # open applications
 alias vscode="open -a /Applications/Visual\ Studio\ Code.app/"
@@ -142,6 +142,9 @@ function cpbranch() {
     git branch --show-current | pbcopy
 }
 
+alias cph="cphash"
+alias cpb="cpbranch"
+
 function cphb() {
     cphash
     cpbranch
@@ -185,3 +188,14 @@ ssh-add -K ~/.ssh/id_rsa
 ssh-add -L
 
 source $HOME/.cargo/env
+
+alias e=exit
+alias t="open -a /System/Applications/Utilities/Terminal.app ."
+
+# circles
+function addcl() {
+    fn=unreleased_changes/$(git branch --show-current).md
+    touch $fn
+    echo "* Features" > $fn
+    echo "    *" $(git branch --show-current) >> $fn
+}
