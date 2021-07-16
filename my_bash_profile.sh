@@ -1,5 +1,8 @@
 echo running my_bash_profile
 
+alias e=exit
+alias t="open -a /System/Applications/Utilities/Terminal.app ."
+
 # docker
 echo docker shortcuts
 alias docker-rmi='docker rmi $(docker images -a -q)'
@@ -128,6 +131,7 @@ alias go-clean="go clean -i -testcache -modcache -x -r -cache"
 
 # make
 alias mut="make unit_test"
+alias mr="make run"
 
 cppath() {
     echo copying "$(pwd)"
@@ -191,9 +195,6 @@ ssh-add -K ~/.ssh/id_rsa
 ssh-add -L
 
 source $HOME/.cargo/env
-
-alias e=exit
-alias t="open -a /System/Applications/Utilities/Terminal.app ."
 
 # circles
 function addcl() {
