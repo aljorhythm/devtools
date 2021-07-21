@@ -2,7 +2,7 @@ echo running my_bash_profile
 
 alias e=exit
 alias t="open -a /System/Applications/Utilities/Terminal.app ."
-
+alias it="open -a /Applications/iTerm.app ."
 # docker
 echo docker shortcuts
 alias docker-rmi='docker rmi $(docker images -a -q)'
