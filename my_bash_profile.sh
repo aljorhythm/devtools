@@ -204,3 +204,6 @@ function addcl() {
     echo "* Features" > $fn
     echo "    *" $(git branch --show-current) >> $fn
 }
+
+
+alias temperature='sudo powermetrics --samplers smc |grep -i "CPU die temperature"'
