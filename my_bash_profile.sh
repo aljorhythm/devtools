@@ -73,7 +73,12 @@ alias ms="git merge --reset"
 alias gpo="git pull origin"
 alias gpod="git pull origin develop"
 alias gsubco="git submodule update --init --recursive"
+
 function upstream() {
+    git push --set-upstream $1 $(git_current_branch)
+}
+
+function u() {
     git push --set-upstream $1 $(git_current_branch)
 }
 
