@@ -69,7 +69,7 @@ alias stash="git stash"
 alias pop="git stash pop"
 alias merge="git merge"
 alias m="git merge"
-alias ms="git merge reset"
+alias ms="git merge --reset"
 alias gpo="git pull origin"
 alias gpod="git pull origin develop"
 alias gsubco="git submodule update --init --recursive"
@@ -96,6 +96,7 @@ function cf() {
 }
 
 alias cfp="cf && p"
+alias c="cf"
 alias acfep="a && git commit -m 'edit' --no-verify && p"
 
 # push
