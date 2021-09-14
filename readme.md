@@ -3,7 +3,7 @@ might turn in into a script? idk.
 
 # zsh 
 
-Just modify the the second line of this file:
+modify the the second line of this file:
 
 ~/.oh-my-zsh/themes/robbyrussell.zsh-theme,
 
