@@ -63,6 +63,7 @@ formatrb() {
 alias flyhome='cd "$(git rev-parse --show-toplevel)"'
 alias checkout="git checkout"
 alias co="git checkout"
+alias cob="git checkout -b"
 alias fetch="git fetch"
 alias commit="git commit -m "
 alias stash="git stash"
