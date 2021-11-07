@@ -103,6 +103,7 @@ function cf() {
 
 alias cfp="cf && p"
 alias c="s & cf"
+alias acfp="a & cfp"
 alias acfep="a && git commit -m 'edit' --no-verify && p"
 
 # push
@@ -152,13 +153,20 @@ function cphash() {
     git rev-parse --short HEAD | pbcopy
 }
 
+function fetchhash() {
+    git fetch
+    echo copying
+    git rev-parse --short $1 | tee /dev/tty | pbcopy
+}
+
 function cpbranch() {
     echo copying $(git branch --show-current)
-    git branch --show-current | pbcopy
+    git branch --show-current | tee /dev/tty |  pbcopy
 }
 
 alias cph="cphash"
 alias cpb="cpbranch"
+alias fh="fetchhash"
 
 function cphb() {
     cphash
