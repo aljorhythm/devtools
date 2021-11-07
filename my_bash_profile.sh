@@ -3,6 +3,7 @@ alias o='open .'
 alias e=exit
 alias t="open -a /System/Applications/Utilities/Terminal.app ."
 alias it="open -a /Applications/iTerm.app ."
+
 # docker
 echo docker shortcuts
 alias docker-rmi='docker rmi $(docker images -a -q)'
@@ -212,13 +213,10 @@ ssh-add -L
 
 source $HOME/.cargo/env
 
-# circles
-function addcl() {
-    fn=unreleased_changes/$(git branch --show-current).md
-    touch $fn
-    echo "* Features" > $fn
-    echo "    *" $(git branch --show-current) >> $fn
+func mkdiri() {
+    echo Enter directory:
+    read dir
+    mkdir -p "$dir"
 }
-
 
 alias temperature='sudo powermetrics --samplers smc |grep -i "CPU die temperature"'
