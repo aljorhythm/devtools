@@ -86,9 +86,7 @@ function u() {
 
 # commit
 function cm() {
-    echo Commit message:
-    read message
-    git commit -m "${message}"
+    git commit
 }
 
 # commit push
@@ -97,14 +95,16 @@ alias cgp="cm && p"
 
 # commit force (no verify)
 function cf() {
-    echo Commit message:
-    read message
     git commit -m "${message}" --no-verify
 }
 
+function cf() {
+    git commit --no-verify
+}
+
 alias cfp="cf && p"
-alias c="s & cf"
-alias acfp="a & cfp"
+alias c="s && cm"
+alias acfp="a && cfp"
 alias acfep="a && git commit -m 'edit' --no-verify && p"
 
 # push
