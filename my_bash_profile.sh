@@ -99,7 +99,7 @@ function cf() {
 }
 
 alias cfp="cf && p"
-alias c="s && cm && p"
+alias c="s && a && cm && p"
 alias acfp="a && cfp"
 alias acfep="a && git commit -m 'edit' --no-verify && p"
 
@@ -216,3 +216,6 @@ func mkdiri() {
 }
 
 alias temperature='sudo powermetrics --samplers smc |grep -i "CPU die temperature"'
+
+
+alias wci='gh run watch --exit-status'
