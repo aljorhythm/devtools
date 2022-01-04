@@ -22,7 +22,7 @@ brew install unix2dox
 brew install yarn
 
 # postgresql
-brew install postgresql
+# brew install postgresql
 
 # python pyenv
 brew install pyenv
