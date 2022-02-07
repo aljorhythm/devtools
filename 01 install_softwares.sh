@@ -51,6 +51,9 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 # node nvm
 brew install nvm
 
+# gitleaks
+brew install gitleaks
+
 # github cli
 brew install gh
 

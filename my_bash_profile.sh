@@ -34,6 +34,8 @@ echo nvm
 
 # open applications
 alias vscode="open -a /Applications/Visual\ Studio\ Code.app/"
+alias goland="open -a Goland"
+alias odocker="open -a Docker"
 
 # sourcetree
 alias sourcetree="open -a /Applications/Sourcetree.app/"
