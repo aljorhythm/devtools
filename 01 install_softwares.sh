@@ -64,6 +64,10 @@ rbenv init
 # heroku
 brew tap heroku/brew && brew install heroku
 
+# circleci
+
+curl -fLSs https://circle.ci/cli | bash
+
 # rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
