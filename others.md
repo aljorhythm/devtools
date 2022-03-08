@@ -7,3 +7,8 @@ resize images
 ```
 for FILE in *.png; do ffmpeg -i $FILE -vf scale=1000:-1 "$FILE"_1000.png; done
 ```
+
+macos power chime
+```
+defaults write com.apple.PowerChime ChimeOnNoHardware -bool true;killall PowerChime
+```
