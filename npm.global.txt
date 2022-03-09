@@ -1,0 +1,9 @@
+bitbucket-open
+create-react-app
+git-open
+gitignore
+jest
+nodemon
+npm
+tldr
+youtube-dl
