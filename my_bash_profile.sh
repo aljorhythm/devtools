@@ -16,7 +16,7 @@ alias dcu="docker compose up"
 alias dcd="docker compose down"
 
 # general shortcuts
-
+alias fuck='thefuck'
 alias ls-files='find $(pwd) -type f'
 alias workspace="cd ~/git"
 alias ws='cd ~/git'
