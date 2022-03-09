@@ -1,6 +1,7 @@
 echo running my_bash_profile
 alias o='open .'
 alias e=exit
+alias kc=kubectl
 alias dls='cd ~/Downloads'
 alias t="open -a /System/Applications/Utilities/Terminal.app ."
 alias it="open -a /Applications/iTerm.app ."
