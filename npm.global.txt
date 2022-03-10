@@ -6,4 +6,5 @@ jest
 nodemon
 npm
 tldr
+yaml-lint
 youtube-dl
