@@ -176,6 +176,10 @@ function cphb() {
     cpbranch
 }
 
+function search() {
+    grep -nrw . -e "$1" --exclude='.*'
+}
+
 function checkremotes() {
     echo "checking git remotes"
     git fetch
