@@ -8,6 +8,7 @@ brew "dos2unix"
 brew "harfbuzz"
 brew "ffmpeg"
 brew "gh"
+brew "helm"
 brew "lazygit"
 brew "mas"
 brew "maven"
@@ -21,6 +22,7 @@ brew "tree"
 brew "yarn"
 brew "zsh"
 mas "Be Focused", id: 973134470
+mas "Microsoft Word", id: 462054704
 mas "QuickShade", id: 931571202
 mas "Telegram", id: 747648890
 mas "Trello", id: 1278508951
