@@ -1,4 +1,13 @@
 set tabstop=4
+set smartcase
+set scrolloff=3
+syntax enable
+set laststatus=2
+set cursorline
+set relativenumber
+set noerrorbells
+set visualbell
+set title
 set shiftwidth=4
 set hls
 set softtabstop=4

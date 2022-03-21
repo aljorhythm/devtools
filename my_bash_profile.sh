@@ -89,7 +89,8 @@ function upstream() {
 }
 
 function u() {
-    git push --set-upstream $1 $(git_current_branch)
+    REMOTE=$(git remote | head -n 1 | awk '{print $1}')
+    git push --set-upstream $REMOTE $(git_current_branch)
 }
 
 # commit
@@ -113,7 +114,7 @@ alias acfep="a && git commit -m 'edit' --no-verify && p"
 
 # push
 alias push="git push"
-alias P="git push"
+alias P="u"
 alias p="git pull"
 
 # pull
@@ -232,3 +233,5 @@ alias temperature='sudo powermetrics --samplers smc |grep -i "CPU die temperatur
 
 
 alias wci='gh run watch --exit-status'
+
+alias thanks='echo Thanks for reaching out I am unavailable at this moment | pbcopy'
