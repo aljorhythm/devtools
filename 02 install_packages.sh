@@ -3,7 +3,7 @@ set -x #echo on
 
 # node
 
-npm install -g nodemon youtube-dl create-react-app git-open gitignore bitbucket-open
+npm install -g nodemon youtube-dl create-react-app git-open gitignore bitbucket-open jest
 npm i -g tldr
 
 # python3

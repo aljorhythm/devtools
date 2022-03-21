@@ -1,6 +1,9 @@
 echo running my_bash_profile
 alias o='open .'
 alias e=exit
+alias dls='cd ~/Downloads'
+alias kc=kubectl
+alias k=kubectl
 alias t="open -a /System/Applications/Utilities/Terminal.app ."
 alias it="open -a /Applications/iTerm.app ."
 
@@ -14,7 +17,8 @@ alias dcu="docker compose up"
 alias dcd="docker compose down"
 
 # general shortcuts
-
+alias fuck='thefuck'
+alias lg='lazygit'
 alias ls-files='find $(pwd) -type f'
 alias workspace="cd ~/git"
 alias ws='cd ~/git'
@@ -26,6 +30,8 @@ alias vs='open -a /Applications/Visual\ Studio\ Code.app/'
 alias rbmine='open /Applications/RubyMine.app/'
 alias gop='git-open'
 echo nvm
+alias cdg='cd ~/git'
+alias cdh='cd ~'
 # nvm
 # export NVM_DIR=$(brew --prefix nvm)
 # source $NVM_DIR/nvm.sh
@@ -170,6 +176,10 @@ alias fh="fetchhash"
 function cphb() {
     cphash
     cpbranch
+}
+
+function search() {
+    grep -nrw . -e "$1" --exclude='.*'
 }
 
 function checkremotes() {
