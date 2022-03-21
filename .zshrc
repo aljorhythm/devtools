@@ -99,5 +99,4 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-source /Users/joel.lim/git/devtools-list/my_bash_profile.sh
 export PATH="/usr/local/sbin:$PATH"

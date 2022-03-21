@@ -113,7 +113,8 @@ alias acfep="a && git commit -m 'edit' --no-verify && p"
 
 # push
 alias push="git push"
-alias p="git push"
+alias P="git push"
+alias p="git pull"
 
 # pull
 alias pu="git pull"
