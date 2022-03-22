@@ -236,6 +236,15 @@ alias wci='gh run watch --exit-status'
 
 # shortcuts
 alias thanks='echo Thanks for reaching out I am unavailable at this moment | pbcopy'
-me-linkedin='echo https://www.linkedin.com/in/joel-lim-jing/ | pbcopy'
-me-github='echo https://github.com/aljorhythm | pbcopy'
-me-medium='echo https://medium.com/aljorhythm/latest | pbcopy'
+alias me-linkedin='echo https://www.linkedin.com/in/joel-lim-jing/ | pbcopy'
+alias me-github='echo https://github.com/aljorhythm | pbcopy'
+alias me-medium='echo https://medium.com/aljorhythm/latest | pbcopy'
+
+function gitignore-init() {
+    FILE=.gitignore
+    IGNORES=("*.idea" "*.tmp" "*.temp" "*.out")
+    echo $IGNORES
+    for LINE in ${IGNORES[@]}; do
+        grep -q "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
+    done
+}
