@@ -234,4 +234,8 @@ alias temperature='sudo powermetrics --samplers smc |grep -i "CPU die temperatur
 
 alias wci='gh run watch --exit-status'
 
+# shortcuts
 alias thanks='echo Thanks for reaching out I am unavailable at this moment | pbcopy'
+me-linkedin='echo https://www.linkedin.com/in/joel-lim-jing/ | pbcopy'
+me-github='echo https://github.com/aljorhythm | pbcopy'
+me-medium='echo https://medium.com/aljorhythm/latest | pbcopy'
