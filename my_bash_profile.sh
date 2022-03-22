@@ -99,18 +99,18 @@ function cm() {
 }
 
 # commit push
-alias cmgp="cm && p"
-alias cgp="cm && p"
+alias cmgp="cm && P"
+alias cgp="cm && P"
 
 # commit force (no verify)
 function cf() {
     git commit --no-verify
 }
 
-alias cfp="cf && p"
-alias c="s && a && cm && p"
-alias acfp="a && cfp"
-alias acfep="a && git commit -m 'edit' --no-verify && p"
+alias cfP="cf && P"
+alias cP="s && a && cm && P"
+alias acfp="a && cfP"
+alias acfep="a && git commit -m 'edit' --no-verify && P"
 
 # push
 alias push="git push"
