@@ -1,2 +1,5 @@
 *.swp
 *.out
+*.idea
+*.tmp
+*.temp

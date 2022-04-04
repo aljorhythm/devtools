@@ -1,4 +1,6 @@
 set tabstop=4
+set showcmd
+set ignorecase
 set smartcase
 set scrolloff=3
 syntax enable
@@ -14,3 +16,5 @@ set softtabstop=4
 set expandtab
 set ruler
 set wildmenu
+
+autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0

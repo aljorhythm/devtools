@@ -108,6 +108,7 @@ function cf() {
 }
 
 alias cfP="cf && P"
+alias c="git commit"
 alias cP="s && a && cm && P"
 alias acfp="a && cfP"
 alias acfep="a && git commit -m 'edit' --no-verify && P"
