@@ -238,6 +238,7 @@ alias wci='gh run watch --exit-status'
 # shortcuts
 alias thanks='echo Thanks for reaching out I am unavailable at this moment | pbcopy'
 alias me-linkedin='echo https://www.linkedin.com/in/joel-lim-jing/ | pbcopy'
+alias open-linkedin='open https://www.linkedin.com/in/joel-lim-jing'
 alias me-github='echo https://github.com/aljorhythm | pbcopy'
 alias me-medium='echo https://medium.com/aljorhythm/latest | pbcopy'
 
