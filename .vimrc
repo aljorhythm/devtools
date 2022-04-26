@@ -2,7 +2,7 @@ set tabstop=4
 set showcmd
 set ignorecase
 set smartcase
-set scrolloff=3
+set scrolloff=4
 syntax enable
 set laststatus=2
 set cursorline
@@ -18,3 +18,6 @@ set ruler
 set wildmenu
 
 autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
+set showcmd
+set autoindent
+set smartindent
