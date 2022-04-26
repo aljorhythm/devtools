@@ -1,6 +1,6 @@
 set tabstop=4
 set smartcase
-set scrolloff=3
+set scrolloff=4
 syntax enable
 set laststatus=2
 set cursorline
@@ -14,3 +14,6 @@ set softtabstop=4
 set expandtab
 set ruler
 set wildmenu
+set showcmd
+set autoindent
+set smartindent
