@@ -3,6 +3,7 @@ create-react-app
 git-open
 gitignore
 jest
+license
 nodemon
 npm
 tldr
