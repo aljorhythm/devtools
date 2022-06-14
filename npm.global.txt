@@ -1,12 +1,16 @@
 bitbucket-open
 create-react-app
+firebase-tools
 git-open
 gitignore
 jest
 license
 nodemon
 npm
+recursive-install
+serve
 tldr
+ts-node
 typescript
 yaml-lint
 youtube-dl
