@@ -123,6 +123,7 @@ alias pu="git pull"
 alias gpl="git pull"
 alias pull="git pull"
 alias dl="git pull"
+alias prb="git pull --rebase"
 
 # add
 alias add="git add"
