@@ -1,0 +1,9 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory `/Users/joel.lim/git/devtools-list'
+cp .zshrc .zshrc.out
+sh 03\ set_up_bash_profile.sh
+cp .zshrc.out ~/.zshrc
+cp .vimrc ~/.vimrc
+cp .vimrc ~/.ideavimrc
+make: Leaving directory `/Users/joel.lim/git/devtools-list'
+ 
