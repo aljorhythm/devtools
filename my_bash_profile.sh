@@ -150,6 +150,8 @@ alias go-clean="go clean -i -testcache -modcache -x -r -cache"
 # make
 alias mut="make unit_test"
 alias mr="make run"
+alias mdev="make dev"
+alias mf="make format"
 
 cppath() {
     echo copying "$(pwd)"
