@@ -21,3 +21,6 @@
  6060  ffmpeg -i e2e-fast.mov e2e-fast.gif
  6064  ffmpeg -i e2e.mov -r 16 -filter:v "setpts=0.125*PTS" e2e-super-fast.mov
  6066  ffmpeg -i e2e-super-fast.mov e2e-super-fast.gif
+
+ffmpeg -i e2e-full-720.mov -r 16 -filter:v "setpts=0.125*PTS" e2e-full-superfast.mov
+ffmpeg -i e2e-full-superfast.mov e2e-superfast.gif
