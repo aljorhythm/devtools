@@ -24,3 +24,5 @@
 
 ffmpeg -i e2e-full-720.mov -r 16 -filter:v "setpts=0.125*PTS" e2e-full-superfast.mov
 ffmpeg -i e2e-full-superfast.mov e2e-superfast.gif
+
+ ffmpeg -i logo-apex-charts.png scale=50:-1 logo-apex-charts-50.png
