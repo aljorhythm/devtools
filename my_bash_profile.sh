@@ -247,7 +247,7 @@ alias me-medium='echo https://medium.com/aljorhythm/latest | pbcopy'
 
 function gitignore-init() {
     FILE=.gitignore
-    IGNORES=("*.idea" "*.tmp" "*.temp" "*.out")
+    IGNORES=("*.idea" "*.tmp" "*.temp" "*.out" ".vscode")
     echo $IGNORES
     for LINE in ${IGNORES[@]}; do
         grep -q "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
