@@ -3,8 +3,10 @@ create-react-app
 firebase-tools
 git-open
 gitignore
+http-server-spa
 jest
 license
+local-ssl-proxy
 nodemon
 npm
 recursive-install

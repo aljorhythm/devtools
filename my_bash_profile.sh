@@ -235,8 +235,9 @@ func mkdiri() {
 
 alias temperature='sudo powermetrics --samplers smc |grep -i "CPU die temperature"'
 
-
-alias wci='gh run watch --exit-status'
+alias wci='gh run watch -i1 --exit-status'
+alias lci='gh run view --log'
+alias vci='gh run view --web'
 
 # shortcuts
 alias thanks='echo Thanks for reaching out I am unavailable at this moment. Keep in touch | pbcopy'
