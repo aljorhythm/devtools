@@ -236,7 +236,9 @@ func mkdiri() {
 alias temperature='sudo powermetrics --samplers smc |grep -i "CPU die temperature"'
 
 alias wci='gh run watch -i1 --exit-status'
-alias lci='gh run view $( gh run list --limit 1 --json databaseId --jq '.[0].databaseId' ) --log'
+function lci() {
+    gh run view $(gh run list --limit 1 --json databaseId --jq '.[0].databaseId' ) --log
+}
 alias vci='gh run view --web'
 
 # shortcuts
