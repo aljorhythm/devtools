@@ -217,7 +217,7 @@ export PATH="$PATH:~/git/flutter/bin"
 # fi
 
 # rbenv
-eval "$(rbenv init -)"
+# eval "$(rbenv init -)"
 # export PATH="$PATH:~/.gem/ruby/2.6.0/bin"
 
 # ssh

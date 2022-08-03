@@ -56,16 +56,3 @@ brew "mongodb/brew/mongodb-community"
 brew "yt-dlp/taps/yt-dlp"
 cask "background-music"
 cask "ngrok"
-mas "Be Focused", id: 973134470
-mas "Developer", id: 640199958
-mas "Microsoft Excel", id: 462058435
-mas "Microsoft PowerPoint", id: 462062816
-mas "Microsoft Word", id: 462054704
-mas "Numbers", id: 409203825
-mas "QR Capture", id: 1369524274
-mas "QuickShade", id: 931571202
-mas "Telegram", id: 747648890
-mas "Trello", id: 1278508951
-mas "TV•Remote", id: 1535056536
-mas "Twitter", id: 1482454543
-mas "Xcode", id: 497799835
