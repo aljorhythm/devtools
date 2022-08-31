@@ -1,5 +1,7 @@
+cli
 bitbucket-open
 create-react-app
+cross-env
 firebase-tools
 git-open
 gitignore
@@ -7,9 +9,11 @@ http-server-spa
 jest
 license
 local-ssl-proxy
+madge
 nodemon
 npm
 recursive-install
+sequelize-cli
 serve
 tldr
 ts-node
