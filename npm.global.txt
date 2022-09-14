@@ -12,6 +12,7 @@ local-ssl-proxy
 madge
 nodemon
 npm
+playwright
 recursive-install
 sequelize-cli
 serve

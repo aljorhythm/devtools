@@ -47,6 +47,7 @@ brew "podman"
 brew "pyenv"
 brew "python@3.7", link: false
 brew "qrencode"
+brew "rbenv"
 brew "terraform"
 brew "thefuck"
 brew "tree"
