@@ -108,6 +108,11 @@ function cf() {
     git commit --no-verify
 }
 
+# function deploy-prod-from-job-commit-sha {
+#     # $1 is job id
+#     gh workflow run prod-deploy.yml --ref "$(gh run view $1 --json headSha --jq .headSha)"
+# }
+
 alias cfP="cf && P"
 alias c="git commit"
 alias cP="s && a && cm && P"
