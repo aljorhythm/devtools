@@ -9,8 +9,6 @@ brew "ack"
 brew "aha"
 brew "python@3.10", link: false
 brew "awscli"
-brew "glib"
-brew "python@3.9"
 brew "libtool"
 brew "gnutls"
 brew "libslirp"
@@ -22,13 +20,13 @@ brew "doctl"
 brew "dos2unix"
 brew "harfbuzz"
 brew "openjpeg"
-brew "gobject-introspection"
 brew "libass"
 brew "tesseract"
 brew "ffmpeg"
 brew "fswatch"
 brew "gdk-pixbuf"
 brew "gh"
+brew "gobject-introspection"
 brew "pango"
 brew "librsvg"
 brew "graphviz"
@@ -40,12 +38,10 @@ brew "mas"
 brew "maven"
 brew "minikube"
 brew "mkcert"
-brew "node"
 brew "nvm"
 brew "octant"
 brew "podman"
 brew "pyenv"
-brew "python@3.7", link: false
 brew "qrencode"
 brew "rbenv"
 brew "terraform"
@@ -58,14 +54,18 @@ brew "fluxcd/tap/flux"
 brew "mongodb/brew/mongodb-community"
 brew "yt-dlp/taps/yt-dlp"
 cask "ngrok"
+cask "temurin"
 mas "Be Focused", id: 973134470
 mas "Developer", id: 640199958
 mas "Focus To-Do", id: 1258530160
 mas "GarageBand", id: 682658836
+mas "iMovie", id: 408981434
+mas "Keynote", id: 409183694
 mas "Microsoft Excel", id: 462058435
 mas "Microsoft PowerPoint", id: 462062816
 mas "Microsoft Word", id: 462054704
 mas "Numbers", id: 409203825
+mas "Pages", id: 409201541
 mas "QR Capture", id: 1369524274
 mas "QuickShade", id: 931571202
 mas "Telegram", id: 747648890
