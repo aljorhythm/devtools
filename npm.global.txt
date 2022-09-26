@@ -1,5 +1,5 @@
-wins-dev-tools
 corepack
 husky
+jest
 lint-staged
 npm
