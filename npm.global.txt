@@ -1,0 +1,5 @@
+wins-dev-tools
+corepack
+husky
+lint-staged
+npm
