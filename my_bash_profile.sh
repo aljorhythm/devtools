@@ -38,6 +38,11 @@ source $NVM_DIR/nvm.sh
 export NVM_DIR=~/.nvm
 source $(brew --prefix nvm)/nvm.sh
 
+v() {
+    echo -e node -v
+    echo -e npm -v
+}
+
 # open applications
 alias vscode="open -a /Applications/Visual\ Studio\ Code.app/"
 alias goland="open -a Goland"
