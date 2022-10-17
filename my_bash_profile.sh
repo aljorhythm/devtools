@@ -39,6 +39,7 @@ export NVM_DIR=~/.nvm
 source $(brew --prefix nvm)/nvm.sh
 
 v() {
+    set -x
     node -v
     npm -v
     mvn -v
