@@ -5,3 +5,6 @@ FILE=$SCRIPT_PATH/.zshrc.out
 echo $LINE
 echo appending to zshrc
 grep -q "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
+
+LINE="source $SCRIPT_PATH/.this_profile.sh"
+grep -q "$LINE" "$FILE" || echo "$LINE" >> "$FILE"

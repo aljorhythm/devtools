@@ -268,5 +268,3 @@ function gitignore-init() {
         grep -q "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
     done
 }
-
-source ~/.this_profile.sh
