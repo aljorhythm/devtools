@@ -269,3 +269,8 @@ function gitignore-init() {
         grep -q "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
     done
 }
+
+#dozzle
+
+alias dozzle-pull="docker pull amir20/dozzle:latest"
+alias dozzle-up="docker run --name dozzle -d --volume=/var/run/docker.sock:/var/run/docker.sock -p 8888:8080 amir20/dozzle:latest"
