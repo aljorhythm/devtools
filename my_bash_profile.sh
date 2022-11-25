@@ -91,6 +91,7 @@ alias ms="git merge --reset"
 alias gpo="git pull origin"
 alias gpod="git pull origin develop"
 alias gsubco="git submodule update --init --recursive"
+alias lcm="git log -1 --pretty=%B | pbcopy"
 
 function upstream() {
     git push --set-upstream $1 $(git_current_branch)
@@ -137,6 +138,11 @@ alias gpl="git pull"
 alias pull="git pull"
 alias dl="git pull"
 alias prb="git pull --rebase"
+alias cnv='git commit --no-verify'
+alias pnv='git push --no-verify'
+
+
+alias nr='npm run'
 
 # add
 alias add="git add"
