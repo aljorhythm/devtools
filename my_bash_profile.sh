@@ -32,6 +32,7 @@ alias gop='git-open'
 echo nvm
 alias cdg='cd ~/git'
 alias cdh='cd ~'
+
 # nvm
 export NVM_DIR=$(brew --prefix nvm)
 source $NVM_DIR/nvm.sh
