@@ -29,16 +29,16 @@ alias st='open -a /Applications/Sourcetree.app "$(git rev-parse --show-toplevel)
 alias vs='open -a /Applications/Visual\ Studio\ Code.app/'
 alias rbmine='open /Applications/RubyMine.app/'
 alias gop='git-open'
-echo nvm
 alias cdg='cd ~/git'
 alias cdh='cd ~'
 
 # nvm
+echo init nvm
 export NVM_DIR=$(brew --prefix nvm)
 source $NVM_DIR/nvm.sh
 # export NVM_DIR=~/.nvm
 # source $(brew --prefix nvm)/nvm.sh
-
+echo finish init nvm
 v() {
     set -x
     node -v
