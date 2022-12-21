@@ -93,6 +93,7 @@ alias gpo="git pull origin"
 alias gpod="git pull origin develop"
 alias gsubco="git submodule update --init --recursive"
 alias lcm="git log -1 --pretty=%B | pbcopy"
+alias flcm="git log -1 --pretty=%B | head -n1 | awk '{print $1;}'"
 
 function upstream() {
     git push --set-upstream $1 $(git_current_branch)
