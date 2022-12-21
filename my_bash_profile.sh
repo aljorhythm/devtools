@@ -36,8 +36,8 @@ alias cdh='cd ~'
 # nvm
 export NVM_DIR=$(brew --prefix nvm)
 source $NVM_DIR/nvm.sh
-export NVM_DIR=~/.nvm
-source $(brew --prefix nvm)/nvm.sh
+# export NVM_DIR=~/.nvm
+# source $(brew --prefix nvm)/nvm.sh
 
 v() {
     set -x
@@ -246,7 +246,7 @@ export PATH="$PATH:~/git/flutter/bin"
 # ssh-add -K ~/.ssh/id_rsa
 # ssh-add -L
 
-source $HOME/.cargo/env
+[[ -f ".nvmrc" ]] && source $HOME/.cargo/env
 
 func mkdiri() {
     echo Enter directory:
