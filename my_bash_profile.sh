@@ -303,8 +303,8 @@ my_prompt() {
     echo "%{$reset_color%}$(git log --color=always --pretty=format:"%C(yellow)%h%Creset %ad | %Cgreen%s%Creset %Cred%d%Creset %Cblue[%an]" --date=short -n 4 2> /dev/null)\n%{$fg_bold[cyan]%}$(git --no-pager status -sb 2> /dev/null)\n"
     current_branch="$(my_current_branch)"
   fi
-  echo "%{$fg_bold[red]%}$(ssh_connection)%{$fg_bold[green]%}%n@%m%{$reset_color%}\n[${ret_status}] %{$fg[green]%} %~ %{$reset_color%} @ %{$fg[green]%} $current_branch %{$reset_color%} %{$fg_bold[white]%}%{$bg[green]%}\nENTER CMD > %{$reset_color%} "
+  echo "%{$fg_bold[red]%}$(ssh_connection)%{$fg_bold[green]%}%n@%m%{$reset_color%}\n[${ret_status}] %{$fg[green]%} %~ %{$reset_color%} @ %{$fg[green]%} $current_branch %{$reset_color%} %{$fg_bold[white]%}%{$bg[green]%}\n ENTER CMD > %{$reset_color%} "
 }
 
+PROMPT=$'%{$fg_bold[white]%}%{$bg[red]%} END %{$reset_color%}\n$(my_prompt)'
 # PROMPT=$'\n$(ssh_connection)%{$fg_bold[green]%}%n@%m%{$reset_color%}$(my_git_prompt) : %~\n[${ret_status}] % '
-PROMPT=$'%{$fg_bold[white]%}%{$bg[red]%} END \n$(my_prompt)'
