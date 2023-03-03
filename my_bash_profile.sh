@@ -34,8 +34,6 @@ alias cdg='cd ~/git'
 alias cdh='cd ~'
 
 # nvm
-echo init nvm
-
 export NVM_DIR=$(brew --prefix nvm)
 
 initNvm() {
@@ -47,9 +45,9 @@ initNvm() {
 
 if [[ -f ".nvmrc" ]]; then
     echo init nvm
-    # initNvm
-    # echo nvm use
-    # nvm use
+    initNvm
+    echo nvm use
+    nvm use
 else
     echo no .nvmrc found
 fi
