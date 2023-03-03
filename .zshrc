@@ -9,7 +9,6 @@ export ZSH="$HOME/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="mortalscumbag"
-PROMPT=$'\n%{$fg[red]%}last commit $(git --no-pager rev-parse --short HEAD)\n%{$fg[yellow]%}$(git --no-pager log -1 --pretty=%B)\n$(git --no-pager status -sb)\n%{$reset_color%}$(ssh_connection)%{$fg_bold[green]%}%n@%m%{$reset_color%}$(my_git_prompt) : %~\n[${ret_status}] %# '
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load

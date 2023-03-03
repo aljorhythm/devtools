@@ -37,10 +37,24 @@ alias cdh='cd ~'
 echo init nvm
 
 export NVM_DIR=$(brew --prefix nvm)
-source $NVM_DIR/nvm.sh
-# export NVM_DIR=~/.nvm
-# source $(brew --prefix nvm)/nvm.sh
-echo finish init nvm
+
+initNvm() {
+    source $NVM_DIR/nvm.sh
+    # export NVM_DIR=~/.nvm
+    # source $(brew --prefix nvm)/nvm.sh
+    echo finish init nvm
+}
+
+if [[ -f ".nvmrc" ]]; then
+    echo init nvm
+    # initNvm
+    # echo nvm use
+    # nvm use
+else
+    echo no .nvmrc found
+fi
+
+
 v() {
     set -x
     node -v
@@ -248,8 +262,6 @@ export PATH="$PATH:~/git/flutter/bin"
 # ssh-add -K ~/.ssh/id_rsa
 # ssh-add -L
 
-[[ -f ".nvmrc" ]] && source $HOME/.cargo/env
-
 func mkdiri() {
     echo Enter directory:
     read dir
@@ -284,3 +296,15 @@ function gitignore-init() {
 
 alias dozzle-pull="docker pull amir20/dozzle:latest"
 alias dozzle-up="docker run --name dozzle -d --volume=/var/run/docker.sock:/var/run/docker.sock -p 8888:8080 amir20/dozzle:latest"
+
+my_prompt() {
+  local current_branch=''
+  if [ -d .git ]; then
+    echo "%{$reset_color%}$(git log --color=always --pretty=format:"%C(yellow)%h%Creset %ad | %Cgreen%s%Creset %Cred%d%Creset %Cblue[%an]" --date=short -n 4 2> /dev/null)\n%{$fg_bold[cyan]%}$(git --no-pager status -sb 2> /dev/null)\n"
+    current_branch="$(my_current_branch)"
+  fi
+  echo "%{$fg_bold[red]%}$(ssh_connection)%{$fg_bold[green]%}%n@%m%{$reset_color%}\n[${ret_status}] %{$fg[green]%} %~ %{$reset_color%} @ %{$fg[green]%} $current_branch %{$reset_color%} %{$fg_bold[white]%}%{$bg[green]%}\nENTER CMD > %{$reset_color%} "
+}
+
+# PROMPT=$'\n$(ssh_connection)%{$fg_bold[green]%}%n@%m%{$reset_color%}$(my_git_prompt) : %~\n[${ret_status}] % '
+PROMPT=$'%{$fg_bold[white]%}%{$bg[red]%} END \n$(my_prompt)'
