@@ -6,7 +6,7 @@ alias kc=kubectl
 alias k=kubectl
 alias t="open -a /System/Applications/Utilities/Terminal.app ."
 alias it="open -a /Applications/iTerm.app ."
-
+alias mk="make"
 # docker
 echo docker shortcuts
 alias docker-rmi='docker rmi -f $(docker images -a -q)'
@@ -43,9 +43,10 @@ initNvm() {
     echo finish init nvm
 }
 
+initNvm
+
 if [[ -f ".nvmrc" ]]; then
     echo init nvm
-    initNvm
     echo nvm use
     nvm use
 else
