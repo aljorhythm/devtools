@@ -18,7 +18,7 @@ alias dcd="docker compose down"
 
 # general shortcuts
 
-alias firstlinkinreadme='grep -oE 'http[s]?://\S+' README.md | head -1 | xargs open'
+alias firstlinkinreadme="grep -oE 'http[s]?://\S+' README.md | head -1 | xargs open"
 alias fuck='thefuck'
 alias fk='thefuck'
 alias lg='lazygit'
