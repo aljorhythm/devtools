@@ -1,4 +1,5 @@
 git config --global merge.tool opendiff
+	git config core.hooksPath .githooks
 
 git update-index --chmod=-x
 
