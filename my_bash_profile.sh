@@ -18,6 +18,7 @@ alias dcu="docker compose up"
 alias dcd="docker compose down"
 
 # general shortcuts
+console.log("🚀 ~ file: my_bash_profile.sh:21 ~ shortcuts:", shortcuts)
 
 alias firstlinkinreadme="grep -oE 'http[s]?://\S+' README.md | head -1 | xargs open"
 alias openlink="firstlinkinreadme"
