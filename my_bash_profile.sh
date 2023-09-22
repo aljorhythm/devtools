@@ -38,6 +38,7 @@ alias rbmine='open /Applications/RubyMine.app/'
 alias gop='git-open'
 alias cdg='cd ~/git'
 alias cdh='cd ~'
+alias f='git fetch'
 
 # nvm
 export NVM_DIR=$(brew --prefix nvm)
