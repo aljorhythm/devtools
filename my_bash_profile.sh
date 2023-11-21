@@ -201,6 +201,8 @@ cppath() {
     pwd | pbcopy
 }
 
+alias path=cppath
+
 # copy hash copy branch
 function cphash() {
     echo copying $(git rev-parse --short HEAD)
