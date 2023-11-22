@@ -17,7 +17,9 @@ alias docker-reset='docker system prune -f; docker volume prune -f; docker-stop;
 alias dcu="docker compose up"
 alias dcd="docker compose down"
 alias container='docker container'
+alias cont='docker container'
 alias images='docker images'
+alias imgs='docker images'
 
 # general shortcuts
 
