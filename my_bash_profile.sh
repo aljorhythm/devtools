@@ -16,6 +16,8 @@ alias docker-rmc='docker container rm $(docker container ls -aq)'
 alias docker-reset='docker system prune -f; docker volume prune -f; docker-stop; docker-rmc; docker-rmi; docker images; docker container ls'
 alias dcu="docker compose up"
 alias dcd="docker compose down"
+alias container='docker container'
+alias images='docker images'
 
 # general shortcuts
 
