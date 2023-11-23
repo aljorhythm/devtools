@@ -4,3 +4,6 @@ log all
 
 restart all containers 
 `docker restart $(docker ps -q)`
+
+
+docker rm -f $(docker ps -a -q --filter ancestor=confluentinc/cp-kafka:7.2.2)

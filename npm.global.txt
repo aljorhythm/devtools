@@ -1,5 +1,2 @@
 corepack
-husky
-jest
-lint-staged
 npm
