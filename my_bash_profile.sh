@@ -270,6 +270,7 @@ export PATH="$PATH:~/git/flutter/bin"
 # export PATH="$PATH:~/.gem/ruby/2.6.0/bin"
 
 # ssh
+# ssh-keygen -t ed25519 -C "email.com"
 # eval "$(ssh-agent -s)"
 # ssh-add -K ~/.ssh/id_rsa
 # ssh-add -L
