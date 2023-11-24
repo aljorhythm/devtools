@@ -22,6 +22,7 @@ https://www.google.com/chrome/
 
 # spotify
 https://www.spotify.com
+https://www.spotify.com/sg-en/download/mac/
 
 # last pass
 https://lastpass.com/misc_download2.php
