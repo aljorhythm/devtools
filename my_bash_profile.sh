@@ -324,4 +324,4 @@ PROMPT_SHORT='%F{green}%*%f %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f$ '
 PROMPT=$PROMPT_FULL
 # PROMPT=$'\n$(ssh_connection)%{$fg_bold[green]%}%n@%m%{$reset_color%}$(my_git_prompt) : %~\n[${ret_status}] % '
 
-sudo ln ~/Downloads /var/downloads
+#  sudo ln ~/Downloads /var/downloads
