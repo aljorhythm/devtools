@@ -12,7 +12,7 @@ alias mk="make"
 echo docker shortcuts
 alias docker-rmi='docker rmi -f $(docker images -a -q)'
 alias docker-stop='docker stop $(docker ps -aq)'
-alias docker-rmc='docker container rm $(docker container ls -aq)'
+alias docker-rmc='docker container rm --force $(docker container ls -aq)'
 alias docker-reset='docker system prune -f; docker volume prune -f; docker-stop; docker-rmc; docker-rmi; docker images; docker container ls'
 alias dcu="docker compose up"
 alias dcd="docker compose down"
