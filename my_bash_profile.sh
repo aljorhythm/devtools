@@ -40,6 +40,7 @@ alias st='open -a /Applications/Sourcetree.app "$(git rev-parse --show-toplevel)
 alias vs='open -a /Applications/Visual\ Studio\ Code.app/'
 alias rbmine='open /Applications/RubyMine.app/'
 alias gop='git-open'
+alias open-remote='git remote -v | awk '/origin.*\(push\)/ {print $2}' | xargs open'
 alias cdg='cd ~/git'
 alias cdh='cd ~'
 alias f='git fetch'
