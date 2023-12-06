@@ -5,3 +5,4 @@
 *.temp
 .vscode
 .this_profile.sh
+.zshrc.out
