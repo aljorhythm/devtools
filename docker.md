@@ -7,3 +7,6 @@ restart all containers
 
 
 docker rm -f $(docker ps -a -q --filter ancestor=confluentinc/cp-kafka:7.2.2)
+
+sudo ln -sf $HOME/.colima/default/docker.sock /var/run/docker.sock
+export DOCKER_HOST=unix:///Users/<name>/.colima/local/docker.sock
