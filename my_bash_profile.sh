@@ -110,6 +110,7 @@ formatrb() {
 alias flyhome='cd "$(git rev-parse --show-toplevel)"'
 alias checkout="git checkout"
 alias co="git checkout"
+alias clone='git clone'
 alias cob="git checkout -b"
 alias fetch="git fetch"
 alias commit="git commit -m "
@@ -308,6 +309,8 @@ function gitignore-init() {
         grep -q "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
     done
 }
+
+export GPG_TTY=$(tty)
 
 #dozzle
 
