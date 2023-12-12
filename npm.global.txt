@@ -1,3 +1,6 @@
+avn-n
+avn-nvm
+avn
 corepack
 npm
 pnpm
