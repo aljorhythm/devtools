@@ -12,6 +12,7 @@ alias mk="make"
 echo docker shortcuts
 alias docker-rmi='docker rmi -f $(docker images -a -q)'
 alias docker-stop='docker stop $(docker ps -aq)'
+alias cont-reset='docker-stop && docker-rmc'
 alias docker-rmc='docker container rm --force $(docker container ls -aq)'
 alias docker-reset='docker system prune -f; docker volume prune -f; docker-stop; docker-rmc; docker-rmi; docker images; docker container ls'
 alias dcu="docker compose up"
@@ -23,6 +24,30 @@ alias imgs='docker images'
 
 # general shortcuts
 
+function sync-remote() {
+    local current_branch=$(git branch --show-current)
+
+    if [ -z "$current_branch" ]; then
+        echo "Error: Could not determine the current branch."
+        return 1
+    fi
+
+    # git stash
+    
+    local current_sha=$(git rev-parse HEAD)
+    if [ -z "$current_sha" ]; then
+        echo "Error: Could not determine the current commit SHA."
+        return 1
+    fi
+    git checkout $current_sha
+
+    git branch -D "$current_branch"
+
+    git fetch origin
+
+    git checkout "$current_branch"
+    # git stash pop
+}
 
 alias firstlinkinreadme="grep -oE 'http[s]?://\S+' README.md | head -1 | xargs open"
 alias openlink="firstlinkinreadme"
@@ -322,8 +347,10 @@ my_prompt() {
   if [ -d .git ]; then
     echo "%{$reset_color%}$(git log --color=always --pretty=format:"%C(yellow)%h%Creset %ad | %Cgreen%s%Creset %Cred%d%Creset %Cblue[%an]" --date=short -n 4 2> /dev/null)\n%{$fg_bold[cyan]%}$(git --no-pager status -sb 2> /dev/null)\n"
     current_branch="$(my_current_branch)"
+    main_branch=$(git_main_branch)
+    echo "$(git rev-list --left-right --count origin/${main_branch}...HEAD | awk -v branch="$main_branch" '{print "You are behind origin/" branch " by " $1 " commit(s), ahead by " $2 " commit(s)"}')"
   fi
-  echo "%{$fg_bold[red]%}$(ssh_connection)%{$fg_bold[green]%}%n@%m%{$reset_color%}\n[${ret_status}] %{$fg[green]%} %~ %{$reset_color%} @ %{$fg[green]%} $current_branch %{$reset_color%} %{$fg_bold[white]%}%{$bg[green]%}\n ENTER CMD > %{$reset_color%} "
+  echo "%{$fg_bold[red]%}$(ssh_connection)%{$fg_bold[green]%}%n@%m%{$reset_color%}\n[${ret_status}] %{$fg[green]%} %~ %{$reset_color%} @ %{$fg[green]%} $current_branch %{$reset_color%}\n%{$fg_bold[black]%}ENTER CMD > %{$reset_color%} "
 }
 
 PROMPT_FULL=$'%{$fg_bold[white]%}%{$bg[red]%} END %{$reset_color%}\n$(my_prompt)'

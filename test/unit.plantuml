@@ -1,0 +1,21 @@
+@startuml
+actor Developer
+participant "Hybrid Test Runner" as Runner
+participant "Application Module" as App
+participant "Mocked Service" as Mock
+database "Database" as DB
+
+Developer -> Runner : initiates test
+Runner -> App : calls module
+
+alt Using Mocked Service
+  App -> Mock : calls mocked function
+  Mock -> App : returns mock result
+else Using Real Database
+  App -> DB : queries/updates
+  DB -> App : returns real data
+end
+
+App -> Runner : returns result
+Runner -> Developer : reports test result
+@enduml
