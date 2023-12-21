@@ -345,8 +345,9 @@ alias dozzle-up="docker run --name dozzle -d --volume=/var/run/docker.sock:/var/
 my_prompt() {
   local current_branch=''
   if [ -d .git ]; then
-    echo "%{$reset_color%}$(git log --color=always --pretty=format:"%C(yellow)%h%Creset %ad | %Cgreen%s%Creset %Cred%d%Creset %Cblue[%an]" --date=short -n 4 2> /dev/null)\n%{$fg_bold[cyan]%}$(git --no-pager status -sb 2> /dev/null)\n"
+    echo "%{$reset_color%}$(git log --color=always --pretty=format:"%C(yellow)%h%Creset %ad | %Cgreen%s%Creset %Cred%d%Creset %Cblue[%an]" --date=short -n 4 2> /dev/null)\n\n%{$fg_bold[cyan]%}$(git --no-pager status -sb 2> /dev/null)\n"
     current_branch="$(my_current_branch)"
+    echo "$(git rev-list --left-right --count origin/${current_branch}...HEAD | awk -v branch="$current_branch" '{print "You are behind origin/" branch " by " $1 " commit(s), ahead by " $2 " commit(s)"}')"
     main_branch=$(git_main_branch)
     echo "$(git rev-list --left-right --count origin/${main_branch}...HEAD | awk -v branch="$main_branch" '{print "You are behind origin/" branch " by " $1 " commit(s), ahead by " $2 " commit(s)"}')"
   fi
