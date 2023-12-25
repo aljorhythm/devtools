@@ -3,8 +3,8 @@ echo running my_bash_profile
 alias o='open .'
 alias e=exit
 alias dls='cd ~/Downloads'
-alias kc=kubectl
-alias k=kubectl
+# alias kc=kubectl
+# alias k=kubectl
 alias t="open -a /System/Applications/Utilities/Terminal.app ."
 alias it="open -a /Applications/iTerm.app ."
 alias mk="make"
