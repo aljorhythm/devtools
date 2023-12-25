@@ -360,7 +360,7 @@ PROMPT=$PROMPT_SHORT
 
 if [[ -f ".start-hook.sh" ]]; then
     echo running .start-hook.sh
-    ./.start-hook.sh
+    source ./.start-hook.sh
 else
     echo no .start-hook.sh found
 fi
