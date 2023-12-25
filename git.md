@@ -14,5 +14,6 @@ for dir in wins*; do echo $dir; echo $(cd "$dir"; git clean -f; git checkout .; 
 To remove the most recent commit but keep the changes in your working directory, use:
 
 `git reset --soft HEAD~1`
+`git reset HEAD^`
 
 `git rebase --autosquash origin/master`

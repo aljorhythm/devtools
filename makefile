@@ -4,6 +4,7 @@ setup:
 	cp .zshrc.out ~/.zshrc
 	cp .vimrc ~/.vimrc
 	cp .vimrc ~/.ideavimrc
+	cp .gitignore_global ~/.gitignore_global
 
 backup:
 	sh backup_backup.sh
