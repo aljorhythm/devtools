@@ -33,7 +33,7 @@ function sync-remote() {
     fi
 
     # git stash
-    
+
     local current_sha=$(git rev-parse HEAD)
     if [ -z "$current_sha" ]; then
         echo "Error: Could not determine the current commit SHA."
@@ -97,7 +97,6 @@ else
     echo no .nvmrc found
 fi
 
-
 v() {
     set -x
     node -v
@@ -115,11 +114,11 @@ alias sourcetree="open -a /Applications/Sourcetree.app/"
 
 # nodemon
 monpy() {
-    nodemon -L --watch "$1" --exec "python $1" 
+    nodemon -L --watch "$1" --exec "python $1"
 }
 
 monpy3() {
-    nodemon -L --watch "$1" --exec "python3 $1" 
+    nodemon -L --watch "$1" --exec "python3 $1"
 }
 
 nmongo() {
@@ -203,7 +202,6 @@ alias prb="git pull --rebase"
 alias cnv='git commit --no-verify'
 alias pnv='git push --no-verify'
 
-
 alias nr='npm run'
 
 # add
@@ -255,7 +253,7 @@ function fetchhash() {
 
 function cpbranch() {
     echo copying $(git branch --show-current)
-    git branch --show-current | tee /dev/tty |  pbcopy
+    git branch --show-current | tee /dev/tty | pbcopy
 }
 
 alias cph="cphash"
@@ -278,16 +276,15 @@ function checkremotes() {
     remote_origin_count=$(git remote | grep ^origin$ -c)
     branch_name=$(git branch | grep '*' | sed 's/* //' | tr '[:upper:]' '[:lower:]')
 
-    if [ $remote_origin_count -eq "1" ]
-    then
-    git rev-list --left-right --count  origin/$branch_name...HEAD | awk '{print "You are behind tracked remote branch by "$1" commit(s), ahead by "$2" commit(s)"}'
-    git rev-list --left-right --count  origin/develop...HEAD | awk '{print "You are behind develop by "$1" commit(s), ahead by "$2" commit(s)"}'
-    git rev-list --left-right --count  origin/master...HEAD | awk '{print "You are behind master by "$1" commit(s), ahead by "$2" commit(s)"}'
-    git rev-list --left-right --count  origin/develop...origin/staging | awk '{print "origin/staging is behind origin/develop by "$1" commit(s), ahead by "$2" commit(s)"}'
-    git rev-list --left-right --count  origin/master...origin/develop | awk '{print "origin/develop is behind origin/master by "$1" commit(s), ahead by "$2" commit(s)"}'
-    git rev-list --left-right --count  origin/master...origin/staging | awk '{print "origin/staging is behind origin/master by "$1" commit(s), ahead by "$2" commit(s)"}'
+    if [ $remote_origin_count -eq "1" ]; then
+        git rev-list --left-right --count origin/$branch_name...HEAD | awk '{print "You are behind tracked remote branch by "$1" commit(s), ahead by "$2" commit(s)"}'
+        git rev-list --left-right --count origin/develop...HEAD | awk '{print "You are behind develop by "$1" commit(s), ahead by "$2" commit(s)"}'
+        git rev-list --left-right --count origin/master...HEAD | awk '{print "You are behind master by "$1" commit(s), ahead by "$2" commit(s)"}'
+        git rev-list --left-right --count origin/develop...origin/staging | awk '{print "origin/staging is behind origin/develop by "$1" commit(s), ahead by "$2" commit(s)"}'
+        git rev-list --left-right --count origin/master...origin/develop | awk '{print "origin/develop is behind origin/master by "$1" commit(s), ahead by "$2" commit(s)"}'
+        git rev-list --left-right --count origin/master...origin/staging | awk '{print "origin/staging is behind origin/master by "$1" commit(s), ahead by "$2" commit(s)"}'
     else
-    echo "warning: remote origin does not exist"
+        echo "warning: remote origin does not exist"
     fi
 }
 
@@ -319,7 +316,7 @@ alias temperature='sudo powermetrics --samplers smc |grep -i "CPU die temperatur
 
 alias wci='gh run watch -i1 --exit-status'
 function lci() {
-    gh run view $(gh run list --limit 1 --json databaseId --jq '.[0].databaseId' ) --log
+    gh run view $(gh run list --limit 1 --json databaseId --jq '.[0].databaseId') --log
 }
 alias vci='gh run view --web'
 
@@ -335,7 +332,7 @@ function gitignore-init() {
     IGNORES=("*.idea" "*.tmp" "*.temp" "*.out" ".vscode")
     echo $IGNORES
     for LINE in ${IGNORES[@]}; do
-        grep -q "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
+        grep -q "$LINE" "$FILE" || echo "$LINE" >>"$FILE"
     done
 }
 
@@ -347,24 +344,27 @@ alias dozzle-pull="docker pull amir20/dozzle:latest"
 alias dozzle-up="docker run --name dozzle -d --volume=/var/run/docker.sock:/var/run/docker.sock -p 8888:8080 amir20/dozzle:latest"
 
 my_prompt() {
-  local current_branch=''
-  if [ -d .git ]; then
-    echo "%{$reset_color%}$(git log --color=always --pretty=format:"%C(yellow)%h%Creset %ad | %Cgreen%s%Creset %Cred%d%Creset %Cblue[%an]" --date=short -n 4 2> /dev/null)\n\n%{$fg_bold[cyan]%}$(git --no-pager status -sb 2> /dev/null)\n"
-    current_branch="$(my_current_branch)"
-    echo "$(git rev-list --left-right --count origin/${current_branch}...HEAD | awk -v branch="$current_branch" '{print "You are behind origin/" branch " by " $1 " commit(s), ahead by " $2 " commit(s)"}')"
-    main_branch=$(git_main_branch)
-    echo "$(git rev-list --left-right --count origin/${main_branch}...HEAD | awk -v branch="$main_branch" '{print "You are behind origin/" branch " by " $1 " commit(s), ahead by " $2 " commit(s)"}')"
-  fi
-  echo "%{$fg_bold[red]%}$(ssh_connection)%{$fg_bold[green]%}%n@%m%{$reset_color%}\n[${ret_status}] %{$fg[green]%} %~ %{$reset_color%} @ %{$fg[green]%} $current_branch %{$reset_color%}\n%{$fg_bold[black]%}ENTER CMD > %{$reset_color%} "
+    local current_branch=''
+    if [ -d .git ]; then
+        echo "%{$reset_color%}$(git log --color=always --pretty=format:"%C(yellow)%h%Creset %ad | %Cgreen%s%Creset %Cred%d%Creset %Cblue[%an]" --date=short -n 4 2>/dev/null)\n\n%{$fg_bold[cyan]%}$(git --no-pager status -sb 2>/dev/null)\n"
+        current_branch="$(my_current_branch)"
+        echo "$(git rev-list --left-right --count origin/${current_branch}...HEAD | awk -v branch="$current_branch" '{print "You are behind origin/" branch " by " $1 " commit(s), ahead by " $2 " commit(s)"}')"
+        main_branch=$(git_main_branch)
+        echo "$(git rev-list --left-right --count origin/${main_branch}...HEAD | awk -v branch="$main_branch" '{print "You are behind origin/" branch " by " $1 " commit(s), ahead by " $2 " commit(s)"}')"
+    fi
+    echo "%{$fg_bold[red]%}$(ssh_connection)%{$fg_bold[green]%}%n@%m%{$reset_color%}\n[${ret_status}] %{$fg[green]%} %~ %{$reset_color%} @ %{$fg[green]%} $current_branch %{$reset_color%}\n%{$fg_bold[black]%}ENTER CMD > %{$reset_color%} "
 }
 
 PROMPT_FULL=$'%{$fg_bold[white]%}%{$bg[red]%} END %{$reset_color%}\n$(my_prompt)'
 
 prompt_main_branch() {
-  if [ -d .git ]; then
-    main_branch=$(git_main_branch)
-    echo "$(git rev-list --left-right --count origin/${main_branch}...HEAD | awk -v branch="$main_branch" '{if ($1 > 0) print "You are behind origin/" branch " by " $1 " commit(s)"}')"
-  fi
+    if [ -d .git ]; then
+        main_branch=$(git_main_branch)
+        behind_count=$(git rev-list --left-right --count origin/${main_branch}...HEAD | awk -v branch="$main_branch" '{print $1}')
+        if [ "$behind_count" -gt 0 ]; then
+            echo "%F{red}You are behind origin/$main_branch by $behind_count commit(s)\n "
+        fi
+    fi
 }
 
 PROMPT_SHORT='$(prompt_main_branch)%F{green}%*%f %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f%F{green}$(my_current_branch)%f $ '
@@ -384,7 +384,5 @@ function run_start_hook() {
 }
 
 chpwd_functions+=("run_start_hook")
-
-
 
 #  sudo ln ~/Downloads /var/downloads
