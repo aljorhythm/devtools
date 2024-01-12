@@ -66,7 +66,11 @@ alias vs='open -a /Applications/Visual\ Studio\ Code.app/'
 alias rbmine='open /Applications/RubyMine.app/'
 alias gop='git-open'
 function open-remote {
-    git remote -v | awk '/origin.*\(push\)/ {print $2}' | xargs open
+    if [[ -f "dev/.remote" ]]; then
+        open $(cat dev/.remote)
+    else
+        git remote -v | awk '/origin.*\(push\)/ {print $2}' | xargs open
+    fi
 }
 
 alias cdg='cd ~/git'
@@ -305,7 +309,7 @@ export PATH="$PATH:~/git/flutter/bin"
 # ssh-add -K ~/.ssh/id_rsa
 # ssh-add -L
 
-func mkdiri() {
+function mkdiri() {
     echo Enter directory:
     read dir
     mkdir -p "$dir"
@@ -355,8 +359,18 @@ my_prompt() {
 }
 
 PROMPT_FULL=$'%{$fg_bold[white]%}%{$bg[red]%} END %{$reset_color%}\n$(my_prompt)'
-PROMPT_SHORT='%F{green}%*%f %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f$ '
+
+prompt_main_branch() {
+  if [ -d .git ]; then
+    main_branch=$(git_main_branch)
+    echo "$(git rev-list --left-right --count origin/${main_branch}...HEAD | awk -v branch="$main_branch" '{if ($1 > 0) print "You are behind origin/" branch " by " $1 " commit(s)"}')"
+  fi
+}
+
+PROMPT_SHORT='$(prompt_main_branch)%F{green}%*%f %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f%F{green}$(my_current_branch)%f $ '
 PROMPT=$PROMPT_SHORT
+
+# PROMPT=$'\n$(ssh_connection)%{$fg_bold[green]%}%n@%m%{$reset_color%}$(my_git_prompt) : %~\n[${ret_status}] % '
 
 if [[ -f ".start-hook.sh" ]]; then
     echo running .start-hook.sh
@@ -365,6 +379,12 @@ else
     echo no .start-hook.sh found
 fi
 
-# PROMPT=$'\n$(ssh_connection)%{$fg_bold[green]%}%n@%m%{$reset_color%}$(my_git_prompt) : %~\n[${ret_status}] % '
+function run_start_hook() {
+    [[ -f ".start-hook.sh" ]] && source .start-hook.sh
+}
+
+chpwd_functions+=("run_start_hook")
+
+
 
 #  sudo ln ~/Downloads /var/downloads
