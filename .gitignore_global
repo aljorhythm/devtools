@@ -4,3 +4,7 @@ dev/
 .envrc
 .npmrc
 .start-hook.sh
+*.ipr
+*.iws
+temp.out
+*.key.pem
