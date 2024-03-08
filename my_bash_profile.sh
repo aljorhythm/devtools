@@ -376,6 +376,13 @@ PROMPT=$PROMPT_SHORT
 
 # PROMPT=$'\n$(ssh_connection)%{$fg_bold[green]%}%n@%m%{$reset_color%}$(my_git_prompt) : %~\n[${ret_status}] % '
 
+if [[ -f ".envrc" ]]; then
+    echo sourcing .envrc
+    source .envrc
+else
+    echo no .envrc found
+fi
+
 if [[ -f ".start-hook.sh" ]]; then
     echo running .start-hook.sh
     source ./.start-hook.sh
