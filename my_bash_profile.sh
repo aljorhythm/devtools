@@ -199,6 +199,7 @@ alias gpl="git pull"
 alias pull="git pull"
 alias dl="git pull"
 alias prb="git pull --rebase"
+alias grc="git rebase --continue"
 alias cnv='git commit --no-verify'
 alias pnv='git push --no-verify'
 

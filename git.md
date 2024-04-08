@@ -17,3 +17,5 @@ To remove the most recent commit but keep the changes in your working directory,
 `git reset HEAD^`
 
 `git rebase --autosquash origin/master`
+
+`git log feature/orm-to-sql..HEAD --oneline | tail -1`
