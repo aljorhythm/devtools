@@ -3,7 +3,7 @@
 dev/
 .envrc
 .npmrc
-.start-hook.sh
+.on-cd.sh
 *.ipr
 *.iws
 temp.out

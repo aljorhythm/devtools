@@ -384,17 +384,21 @@ else
     echo no .envrc found
 fi
 
-if [[ -f ".start-hook.sh" ]]; then
-    echo running .start-hook.sh
-    source ./.start-hook.sh
+if [[ -f ".on-cd.sh" ]]; then
+    echo running .on-cd.sh
+    source ./.on-cd.sh
 else
-    echo no .start-hook.sh found
+    echo no .on-cd.sh found
 fi
 
 function run_start_hook() {
-    [[ -f ".start-hook.sh" ]] && source .start-hook.sh
+    [[ -f ".on-cd.sh" ]] && source .on-cd.sh
 }
 
 chpwd_functions+=("run_start_hook")
 
+alias omr='glab mr view --web'
+
 #  sudo ln ~/Downloads /var/downloads
+
+alias branch='git branch'
