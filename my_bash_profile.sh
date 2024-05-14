@@ -1,5 +1,7 @@
 echo running my_bash_profile
 
+alias se='source .envrc'
+alias cnvs='git commit --no-verify -S'
 alias o='open .'
 alias e=exit
 alias dls='cd ~/Downloads'
@@ -89,13 +91,13 @@ initNvm() {
 
 initNvm
 
-if [[ -f ".nvmrc" ]]; then
-    echo init nvm
-    echo nvm use
-    nvm use
-else
-    echo no .nvmrc found
-fi
+# if [[ -f ".nvmrc" ]]; then
+#     echo init nvm
+#     echo nvm use
+#     nvm use
+# else
+#     echo no .nvmrc found
+# fi
 
 v() {
     set -x
