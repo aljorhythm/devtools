@@ -404,3 +404,6 @@ alias omr='glab mr view --web'
 #  sudo ln ~/Downloads /var/downloads
 
 alias branch='git branch'
+alias gpfnv='gpf --no-verify'
+
+eval "$(mcfly init zsh)"
