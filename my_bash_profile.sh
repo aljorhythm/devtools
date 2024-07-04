@@ -374,7 +374,14 @@ cplastgitmsg() {
     git log -1 --pretty=%B | awk '{print $1; exit}' | tr -d '\n' | pbcopy
 }
 
-PROMPT_SHORT='$(prompt_main_branch)%F{green}%*%f %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f%F{green}$(my_current_branch)%f $ '
+
+envString() {
+    if [ -n "$ENV" ]; then
+        echo " ENV: $ENV"
+    fi
+}
+
+PROMPT_SHORT='$(prompt_main_branch)%F{green}%*%f %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f%F{green}$(my_current_branch)%f%F{blue}$(envString)%f $ '
 PROMPT=$PROMPT_SHORT
 
 # PROMPT=$'\n$(ssh_connection)%{$fg_bold[green]%}%n@%m%{$reset_color%}$(my_git_prompt) : %~\n[${ret_status}] % '

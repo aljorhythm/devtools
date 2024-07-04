@@ -21,3 +21,6 @@ To remove the most recent commit but keep the changes in your working directory,
 `git log feature/orm-to-sql..HEAD --oneline | tail -1`
 
 `git rebase --exec 'git commit --amend --no-edit -n -S' -i origin/master`
+
+`git rebase --exec 'git commit --amend -n -S' -i origin/master`
+
