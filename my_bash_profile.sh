@@ -351,7 +351,10 @@ my_prompt() {
     if [ -d .git ]; then
         echo "%{$reset_color%}$(git log --color=always --pretty=format:"%C(yellow)%h%Creset %ad | %Cgreen%s%Creset %Cred%d%Creset %Cblue[%an]" --date=short -n 4 2>/dev/null)\n\n%{$fg_bold[cyan]%}$(git --no-pager status -sb 2>/dev/null)\n"
         current_branch="$(my_current_branch)"
-        echo "$(git rev-list --left-right --count origin/${current_branch}...HEAD | awk -v branch="$current_branch" '{print "You are behind origin/" branch " by " $1 " commit(s), ahead by " $2 " commit(s)"}')"
+        remote_tracking=$(git rev-parse --abbrev-ref --symbolic-full-name ${current_branch}@{u})
+        if [ -n "$remote_tracking" ]; then
+            echo "$(git rev-list --left-right --count origin/${current_branch}...HEAD | awk -v branch="$current_branch" '{print "You are behind origin/" branch " by " $1 " commit(s), ahead by " $2 " commit(s)"}')"
+        fi
         main_branch=$(git_main_branch)
         echo "$(git rev-list --left-right --count origin/${main_branch}...HEAD | awk -v branch="$main_branch" '{print "You are behind origin/" branch " by " $1 " commit(s), ahead by " $2 " commit(s)"}')"
     fi
@@ -374,7 +377,6 @@ prompt_main_branch() {
 
         # Check if there's a remote tracking branch
         if [ -n "$remote_tracking" ]; then
-            echo remote
             behind_count=$(git rev-list --left-right --count ${remote_tracking}...HEAD | awk -v branch="$remote_tracking" '{print $1}')
             if [ "$behind_count" -gt 0 ]; then
                 echo "%F{red}You are behind $(remote_tracking) by $behind_count commit(s)\n"
