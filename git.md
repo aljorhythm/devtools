@@ -24,3 +24,6 @@ To remove the most recent commit but keep the changes in your working directory,
 
 `git rebase --exec 'git commit --amend -n -S' -i origin/master`
 
+
+oneline
+`git log --all --decorate --oneline --graph`

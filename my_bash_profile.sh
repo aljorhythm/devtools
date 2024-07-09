@@ -361,11 +361,24 @@ my_prompt() {
 PROMPT_FULL=$'%{$fg_bold[white]%}%{$bg[red]%} END %{$reset_color%}\n$(my_prompt)'
 
 prompt_main_branch() {
+  
     if [ -d .git ]; then
         main_branch=$(git_main_branch)
         behind_count=$(git rev-list --left-right --count origin/${main_branch}...HEAD | awk -v branch="$main_branch" '{print $1}')
         if [ "$behind_count" -gt 0 ]; then
-            echo "%F{red}You are behind origin/$main_branch by $behind_count commit(s)\n "
+            echo "%F{red}You are behind origin/$main_branch by $behind_count commit(s)\n"
+        fi
+
+        current_branch="$(my_current_branch)"
+        remote_tracking=$(git rev-parse --abbrev-ref --symbolic-full-name ${current_branch}@{u})
+
+        # Check if there's a remote tracking branch
+        if [ -n "$remote_tracking" ]; then
+            echo remote
+            behind_count=$(git rev-list --left-right --count ${remote_tracking}...HEAD | awk -v branch="$remote_tracking" '{print $1}')
+            if [ "$behind_count" -gt 0 ]; then
+                echo "%F{red}You are behind $(remote_tracking) by $behind_count commit(s)\n"
+            fi
         fi
     fi
 }
