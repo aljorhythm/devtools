@@ -80,14 +80,14 @@ alias cdh='cd ~'
 alias f='git fetch'
 
 # nvm
-export NVM_DIR=$(brew --prefix nvm)
+# export NVM_DIR=$(brew --prefix nvm)
 
-initNvm() {
-    source $NVM_DIR/nvm.sh
+# initNvm() {
+    # source $NVM_DIR/nvm.sh
     # export NVM_DIR=~/.nvm
     # source $(brew --prefix nvm)/nvm.sh
-    echo finish init nvm
-}
+    # echo finish init nvm
+# }
 
 initNvm
 
@@ -369,7 +369,7 @@ prompt_main_branch() {
         main_branch=$(git_main_branch)
         behind_count=$(git rev-list --left-right --count origin/${main_branch}...HEAD | awk -v branch="$main_branch" '{print $1}')
         if [ "$behind_count" -gt 0 ]; then
-            echo "%F{red}You are behind origin/$main_branch by $behind_count commit(s)\n"
+            echo "%F{red}You are behind origin/$main_branch by $behind_count commit(s)\n - "
         fi
 
         current_branch="$(my_current_branch)"
@@ -379,8 +379,9 @@ prompt_main_branch() {
         if [ -n "$remote_tracking" ]; then
             behind_count=$(git rev-list --left-right --count ${remote_tracking}...HEAD | awk -v branch="$remote_tracking" '{print $1}')
             if [ "$behind_count" -gt 0 ]; then
-                echo "%F{red}You are behind $(remote_tracking) by $behind_count commit(s)\n"
+                echo "%F{red}You are behind ${remote_tracking} by $behind_count commit(s)\n - "
             fi
+            echo "\n"
         fi
     fi
 }
@@ -400,6 +401,13 @@ PROMPT_SHORT='$(prompt_main_branch)%F{green}%*%f %F{blue}%~%f %F{red}${vcs_info_
 PROMPT=$PROMPT_SHORT
 
 # PROMPT=$'\n$(ssh_connection)%{$fg_bold[green]%}%n@%m%{$reset_color%}$(my_git_prompt) : %~\n[${ret_status}] % '
+
+if [[ -f ".nvmrc" ]]; then
+    echo nvm init
+    nvm use
+else
+    echo no .nvmrc found
+fi
 
 if [[ -f ".envrc" ]]; then
     echo sourcing .envrc
