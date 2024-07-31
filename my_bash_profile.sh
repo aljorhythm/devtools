@@ -23,6 +23,7 @@ alias container='docker container'
 alias cont='docker container'
 alias images='docker images'
 alias imgs='docker images'
+alias ggraph='git log --all --decorate --oneline --graph -6'
 
 # general shortcuts
 
@@ -89,7 +90,7 @@ alias f='git fetch'
     # echo finish init nvm
 # }
 
-initNvm
+# initNvm
 
 # if [[ -f ".nvmrc" ]]; then
 #     echo init nvm
@@ -357,6 +358,12 @@ my_prompt() {
         fi
         main_branch=$(git_main_branch)
         echo "$(git rev-list --left-right --count origin/${main_branch}...HEAD | awk -v branch="$main_branch" '{print "You are behind origin/" branch " by " $1 " commit(s), ahead by " $2 " commit(s)"}')"
+        if [[ -f ".track-branches" ]]; then
+            while IFS= read -r line; do
+                remote_branch="$line"
+                echo "$(git rev-list --left-right --count origin/${remote_branch}...HEAD | awk -v branch="$remote_branch" '{print "You are behind origin/" branch " by " $1 " commit(s), ahead by " $2 " commit(s)"}')"
+            done < ".track-branches"
+        fi
     fi
     echo "%{$fg_bold[red]%}$(ssh_connection)%{$fg_bold[green]%}%n@%m%{$reset_color%}\n[${ret_status}] %{$fg[green]%} %~ %{$reset_color%} @ %{$fg[green]%} $current_branch %{$reset_color%}\n%{$fg_bold[black]%}ENTER CMD > %{$reset_color%} "
 }
@@ -402,8 +409,11 @@ PROMPT=$PROMPT_SHORT
 
 # PROMPT=$'\n$(ssh_connection)%{$fg_bold[green]%}%n@%m%{$reset_color%}$(my_git_prompt) : %~\n[${ret_status}] % '
 
+
+export NVM_DIR=~/.nvm
+source $(brew --prefix nvm)/nvm.sh
+
 if [[ -f ".nvmrc" ]]; then
-    echo nvm init
     nvm use
 else
     echo no .nvmrc found

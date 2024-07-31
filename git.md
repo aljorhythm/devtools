@@ -27,3 +27,5 @@ To remove the most recent commit but keep the changes in your working directory,
 
 oneline
 `git log --all --decorate --oneline --graph`
+
+`git log --all --decorate --oneline --graph -6`
