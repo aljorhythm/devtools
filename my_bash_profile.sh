@@ -358,12 +358,6 @@ my_prompt() {
         fi
         main_branch=$(git_main_branch)
         echo "$(git rev-list --left-right --count origin/${main_branch}...HEAD | awk -v branch="$main_branch" '{print "You are behind origin/" branch " by " $1 " commit(s), ahead by " $2 " commit(s)"}')"
-        if [[ -f ".track-branches" ]]; then
-            while IFS= read -r line; do
-                remote_branch="$line"
-                echo "$(git rev-list --left-right --count origin/${remote_branch}...HEAD | awk -v branch="$remote_branch" '{print "You are behind origin/" branch " by " $1 " commit(s), ahead by " $2 " commit(s)"}')"
-            done < ".track-branches"
-        fi
     fi
     echo "%{$fg_bold[red]%}$(ssh_connection)%{$fg_bold[green]%}%n@%m%{$reset_color%}\n[${ret_status}] %{$fg[green]%} %~ %{$reset_color%} @ %{$fg[green]%} $current_branch %{$reset_color%}\n%{$fg_bold[black]%}ENTER CMD > %{$reset_color%} "
 }
@@ -371,7 +365,6 @@ my_prompt() {
 PROMPT_FULL=$'%{$fg_bold[white]%}%{$bg[red]%} END %{$reset_color%}\n$(my_prompt)'
 
 prompt_main_branch() {
-  
     if [ -d .git ]; then
         main_branch=$(git_main_branch)
         behind_count=$(git rev-list --left-right --count origin/${main_branch}...HEAD | awk -v branch="$main_branch" '{print $1}')
@@ -390,6 +383,14 @@ prompt_main_branch() {
             fi
             echo "\n"
         fi
+
+        if [[ -f ".track-branches" ]]; then
+            while IFS= read -r line || [ -n "$line" ]; do
+                remote_branch="$line"
+                echo "$(git rev-list --left-right --count origin/${remote_branch}...HEAD | awk -v branch="$remote_branch" '{print "You are behind origin/" branch " by " $1 " commit(s), ahead by " $2 " commit(s)"}')"
+                echo "\n"
+            done < ".track-branches"
+        fi
     fi
 }
 
@@ -404,7 +405,7 @@ envString() {
     fi
 }
 
-PROMPT_SHORT='$(prompt_main_branch)%F{green}%*%f %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f%F{green}$(my_current_branch)%f%F{blue}$(envString)%f $ '
+PROMPT_SHORT=$'$(prompt_main_branch)\n%F{blue}\n%F{green}%*%f %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f%F{green}$(my_current_branch)%f%F{blue}$(envString)%f $ '
 PROMPT=$PROMPT_SHORT
 
 # PROMPT=$'\n$(ssh_connection)%{$fg_bold[green]%}%n@%m%{$reset_color%}$(my_git_prompt) : %~\n[${ret_status}] % '

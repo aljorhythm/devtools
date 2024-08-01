@@ -8,4 +8,5 @@ dev/
 *.iws
 temp.out
 *.key.pem
-.trace-branches
+.track-branches
+.envrc*
