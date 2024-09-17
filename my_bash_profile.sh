@@ -76,6 +76,29 @@ function open-remote {
     fi
 }
 
+function amd {
+    git commit -S --amend --no-verify
+}
+
+function nvmuseifnot {
+    if [[ ! -f ".nvmrc" ]]; then
+        return
+    fi
+    required_version=$(cat .nvmrc)
+
+    # Get the currently active Node version
+    current_version=$(node -v)
+
+    # Compare the current version with the required version
+    if [ "$required_version" != "$current_version" ]; then
+        export NVM_DIR=~/.nvm
+        source $(brew --prefix nvm)/nvm.sh
+        nvm use
+    fi
+}
+
+nvmuseifnot
+
 alias cdg='cd ~/git'
 alias cdh='cd ~'
 alias f='git fetch'
@@ -409,16 +432,6 @@ PROMPT_SHORT=$'$(prompt_main_branch)\n%F{blue}\n%F{green}%*%f %F{blue}%~%f %F{re
 PROMPT=$PROMPT_SHORT
 
 # PROMPT=$'\n$(ssh_connection)%{$fg_bold[green]%}%n@%m%{$reset_color%}$(my_git_prompt) : %~\n[${ret_status}] % '
-
-
-export NVM_DIR=~/.nvm
-source $(brew --prefix nvm)/nvm.sh
-
-if [[ -f ".nvmrc" ]]; then
-    nvm use
-else
-    echo no .nvmrc found
-fi
 
 if [[ -f ".envrc" ]]; then
     echo sourcing .envrc

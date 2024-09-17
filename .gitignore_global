@@ -10,3 +10,5 @@ temp.out
 *.key.pem
 .track-branches
 .envrc*
+.shortcuts.sh
+dev
