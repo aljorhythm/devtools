@@ -1,3 +1,6 @@
+TEST_FILES=$(git diff --name-only origin/master; git ls-files --others --exclude-standard)
+TEST_FILES=$(echo $TEST_FILES | grep 'spec')
+
 # jest
 function tdiff {
     TEST_FILES=$(git diff --name-only origin/master)

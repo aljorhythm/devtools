@@ -29,3 +29,8 @@ oneline
 `git log --all --decorate --oneline --graph`
 
 `git log --all --decorate --oneline --graph -6`
+
+git config --global --unset diff.tool
+git config --global --unset merge.tool 
+git config --global --unset interactive.difffilter
+git config --global --unset core.pager
