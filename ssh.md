@@ -13,3 +13,6 @@ EOF
 
 alias k=ssh-dev
 ```
+
+ssh-add --apple-use-keychain ~/.ssh/id_rsa
+ssh-add ~/.ssh/id_rsa

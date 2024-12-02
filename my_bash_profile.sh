@@ -94,7 +94,7 @@ function nvmuseifnot {
     current_version=$(node -v)
 
     # Compare the current version with the required version
-    if [ "$required_version" != "$current_version" ]; then
+    if [[ "$current_version" != "$required_version"* ]]; then
         export NVM_DIR=~/.nvm
         source $(brew --prefix nvm)/nvm.sh
         nvm use
@@ -355,8 +355,9 @@ alias vci='gh run view --web'
 alias thanks='echo Thanks for reaching out I am unavailable at this moment. Keep in touch | pbcopy'
 alias me-linkedin='echo https://www.linkedin.com/in/joel-lim-jing/ | pbcopy'
 alias open-linkedin='open https://www.linkedin.com/in/joel-lim-jing'
-alias me-github='echo https://github.com/aljorhythm | pbcopy'
+alias me-github='open https://github.com/aljorhythm'
 alias me-medium='echo https://medium.com/aljorhythm/latest | pbcopy'
+alias pingg='ping www.google.com'
 
 function gitignore-init() {
     FILE=.gitignore
