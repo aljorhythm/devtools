@@ -447,17 +447,11 @@ envrciffound() {
     fi
 }
 
-if [[ -f ".on-cd.sh" ]]; then
-    echo running .on-cd.sh
-    source ./.on-cd.sh
-else
-    echo no .on-cd.sh found
-fi
-
 function run_start_hook() {
     [[ -f ".on-cd.sh" ]] && source .on-cd.sh
 }
 
+run_start_hook
 chpwd_functions+=("run_start_hook")
 
 alias omr='glab mr view --web'
