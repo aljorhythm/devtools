@@ -190,7 +190,24 @@ function upstream() {
 
 function u() {
     REMOTE=$(git remote | head -n 1 | awk '{print $1}')
-    git push --set-upstream $REMOTE $(git_current_branch)
+    git push --set-upstream $REMOTE $(git_current_branch) --no-verify
+}
+
+function uf() {
+    REMOTE=$(git remote | head -n 1 | awk '{print $1}')
+    git push --set-upstream $REMOTE $(git_current_branch) --no-verify --force
+}
+
+function stashgprom {
+    stash
+    gprom
+    stash pop
+}
+
+function sync-master {
+    stash
+    gprom
+    stash pop
 }
 
 # commit
@@ -460,5 +477,6 @@ alias omr='glab mr view --web'
 
 alias branch='git branch'
 alias gpfnv='gpf --no-verify'
+alias gpnv='git push --no-verify'
 
 eval "$(mcfly init zsh)"

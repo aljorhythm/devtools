@@ -34,3 +34,6 @@ git config --global --unset diff.tool
 git config --global --unset merge.tool 
 git config --global --unset interactive.difffilter
 git config --global --unset core.pager
+
+git config --global commit.gpgsign true
+git config --global tag.gpgSign true
