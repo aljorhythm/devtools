@@ -167,6 +167,7 @@ formatrb() {
 # git
 alias flyhome='cd "$(git rev-parse --show-toplevel)"'
 alias checkout="git checkout"
+alias gmf="git merge --ff-only"
 alias co="git checkout"
 alias clone='git clone'
 alias cob="git checkout -b"
@@ -183,6 +184,8 @@ alias gpod="git pull origin develop"
 alias gsubco="git submodule update --init --recursive"
 alias lcm="git log -1 --pretty=%B | pbcopy"
 alias flcm="git log -1 --pretty=%B | head -n1 | awk '{print $1;}'"
+
+alias h="cd ~"
 
 function upstream() {
     git push --set-upstream $1 $(git_current_branch)

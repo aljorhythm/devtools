@@ -37,3 +37,5 @@ git config --global --unset core.pager
 
 git config --global commit.gpgsign true
 git config --global tag.gpgSign true
+git reset --hard @{u}
+

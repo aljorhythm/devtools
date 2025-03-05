@@ -1,0 +1,1 @@
+TEST_FILES=$(git diff --name-only origin/master && git ls-files --others --exclude-standard | grep 'spec.ts')
