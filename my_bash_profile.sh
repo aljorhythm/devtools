@@ -84,6 +84,12 @@ function amdne {
     git commit -S --amend --no-verify --no-edit
 }
 
+function nvmuse {
+    export NVM_DIR=~/.nvm
+    source $(brew --prefix nvm)/nvm.sh
+    nvm use
+}
+
 function nvmuseifnot {
     if [[ ! -f ".nvmrc" ]]; then
         return
@@ -166,7 +172,10 @@ formatrb() {
 
 # git
 alias flyhome='cd "$(git rev-parse --show-toplevel)"'
+alias vshome='vs "$(git rev-parse --show-toplevel)"'
 alias checkout="git checkout"
+alias cherry-pick="git cherry-pick"
+alias reflog="git reflog | head -n 15"
 alias gmf="git merge --ff-only"
 alias co="git checkout"
 alias clone='git clone'

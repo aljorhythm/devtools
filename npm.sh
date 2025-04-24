@@ -18,6 +18,8 @@ function tdiff {
     fi
 }
 
+TEST_FILES=$(git diff --name-only origin/master && git ls-files --others --exclude-standard | grep 'spec.ts')
+
 # mocha
 function tdiff {
     TEST_FILES=$(git diff --name-only origin/master | grep 'spec')
