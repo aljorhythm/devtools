@@ -487,8 +487,15 @@ alias omr='glab mr view --web'
 
 #  sudo ln ~/Downloads /var/downloads
 
-alias branch='git branch'
-alias gpfnv='gpf --no-verify'
+gpfnv() {
+  branch=$(git rev-parse --abbrev-ref HEAD)
+  if [ "$branch" == "main" ] || [ "$branch" == "master" ]; then
+    echo "❌ Error: You are on the main or master branch (current: $branch)."
+    return 1
+  fi
+  git push --force --no-verify
+}
+
 alias gpnv='git push --no-verify'
 
 eval "$(mcfly init zsh)"
