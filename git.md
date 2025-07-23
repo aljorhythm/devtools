@@ -39,3 +39,11 @@ git config --global commit.gpgsign true
 git config --global tag.gpgSign true
 git reset --hard @{u}
 
+git fetch --prune
+git branch -r --merged origin/master | grep -v 'origin/master' | grep -v 'origin/HEAD'
+
+git branch -r --merged origin/master | \
+grep -v 'origin/master' | \
+grep -v 'origin/HEAD' | \
+sed 's|origin/||' | \
+xargs -n 1 -I % git push origin --delete %

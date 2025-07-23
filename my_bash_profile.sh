@@ -16,7 +16,7 @@ alias docker-rmi='docker rmi -f $(docker images -a -q)'
 alias docker-stop='docker stop $(docker ps -aq)'
 alias cont-reset='docker-stop && docker-rmc'
 alias docker-rmc='docker container rm --force $(docker container ls -aq)'
-alias docker-reset='docker system prune -f; docker volume prune -f; docker-stop; docker-rmc; docker-rmi; docker images; docker container ls'
+alias docker-clean='docker system prune -f; docker volume prune -f; docker-stop; docker-rmc; docker-rmi; docker images; docker container ls'
 alias dcu="docker compose up"
 alias dcd="docker compose down"
 alias container='docker container'
@@ -82,6 +82,12 @@ function amd {
 
 function amdne {
     git commit -S --amend --no-verify --no-edit
+}
+
+function amdp {
+    git add .
+    git commit -S --amend --no-verify --no-edit
+    gpfnv
 }
 
 function nvmuse {
@@ -195,6 +201,12 @@ alias lcm="git log -1 --pretty=%B | pbcopy"
 alias flcm="git log -1 --pretty=%B | head -n1 | awk '{print $1;}'"
 
 alias h="cd ~"
+
+function addFromHome() {
+  (
+    cd "$(git rev-parse --show-toplevel)" && git add .
+  )
+}
 
 function upstream() {
     git push --set-upstream $1 $(git_current_branch)
@@ -462,7 +474,13 @@ envString() {
     fi
 }
 
-PROMPT_SHORT=$'$(prompt_main_branch)\n%F{blue}\n%F{green}%*%f %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f%F{green}$(my_current_branch)%f%F{blue}$(envString)%f $ '
+get_last_commit_msg() {
+  if git rev-parse --is-inside-work-tree &>/dev/null; then
+    git log -1 --pretty=%s 2>/dev/null
+  fi
+}
+
+PROMPT_SHORT=$'%F{green}%*%f %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f%F{green}$(my_current_branch) $(git_prompt_short_sha) %F{red}$(get_last_commit_msg)%f%F{blue}$(envString)%f $ '
 PROMPT=$PROMPT_SHORT
 
 # PROMPT=$'\n$(ssh_connection)%{$fg_bold[green]%}%n@%m%{$reset_color%}$(my_git_prompt) : %~\n[${ret_status}] % '
@@ -487,13 +505,26 @@ alias omr='glab mr view --web'
 
 #  sudo ln ~/Downloads /var/downloads
 
-gpfnv() {
+function gpfnv {
   branch=$(git rev-parse --abbrev-ref HEAD)
-  if [ "$branch" == "main" ] || [ "$branch" == "master" ]; then
+  if [ "$branch" = "main" ] || [ "$branch" = "master" ]; then
     echo "❌ Error: You are on the main or master branch (current: $branch)."
     return 1
   fi
   git push --force --no-verify
+}
+
+alias branch='git branch'
+
+function git-sync { 
+    echo git checkout HEAD^
+    git checkout HEAD^
+    echo git branch -D $1
+    git branch -D $1
+    echo git fetch
+    git fetch
+    echo git checkout $1
+    git checkout $1
 }
 
 alias gpnv='git push --no-verify'
