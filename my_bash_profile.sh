@@ -529,4 +529,5 @@ function git-sync {
 
 alias gpnv='git push --no-verify'
 
-eval "$(mcfly init zsh)"
+# eval "$(mcfly init zsh)"
+

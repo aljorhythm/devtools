@@ -5,6 +5,7 @@ setup:
 	cp .vimrc ~/.vimrc
 	cp .vimrc ~/.ideavimrc
 	cp .gitignore_global ~/.gitignore_global
+	git config --global core.excludesFile ~/.gitignore_global
 
 backup:
 	sh backup_backup.sh
