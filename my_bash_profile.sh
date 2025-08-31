@@ -480,7 +480,31 @@ get_last_commit_msg() {
   fi
 }
 
-PROMPT_SHORT=$'%F{green}%*%f %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f%F{green}$(my_current_branch) $(git_prompt_short_sha) %F{red}$(get_last_commit_msg)%f%F{blue}$(envString)%f $ '
+git_ahead_behind_summary() {
+    if [ -d .git ]; then
+        local branch track track_counts track_behind track_ahead track_str
+        local main_branch main_counts main_behind main_ahead main_str
+        branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+        track=$(git rev-parse --abbrev-ref --symbolic-full-name ${branch}@{u} 2>/dev/null)
+        main_branch=$(git_main_branch)
+        track_behind=0; track_ahead=0; main_behind=0; main_ahead=0
+        if [ -n "$track" ]; then
+            track_counts=$(git rev-list --left-right --count ${track}...HEAD 2>/dev/null)
+            track_behind=$(echo $track_counts | awk '{print $1}')
+            track_ahead=$(echo $track_counts | awk '{print $2}')
+        fi
+        if [ -n "$main_branch" ] && git show-ref --verify --quiet refs/remotes/origin/$main_branch; then
+            main_counts=$(git rev-list --left-right --count origin/$main_branch...HEAD 2>/dev/null)
+            main_behind=$(echo $main_counts | awk '{print $1}')
+            main_ahead=$(echo $main_counts | awk '{print $2}')
+        fi
+    track_str="%F{yellow}track:%f %F{red}-$track_behind%f %F{green}+${track_ahead}%f"
+    main_str="%F{yellow}$main_branch:%f %F{red}-$main_behind%f %F{green}+${main_ahead}%f"
+    echo " | $track_str | $main_str | "
+    fi
+}
+
+PROMPT_SHORT=$'%F{green}%*%f %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f%F{green}$(my_current_branch) $(git_prompt_short_sha) %F{red}$(get_last_commit_msg)%f$(git_ahead_behind_summary)%F{blue}$(envString)%f $ '
 PROMPT=$PROMPT_SHORT
 
 # PROMPT=$'\n$(ssh_connection)%{$fg_bold[green]%}%n@%m%{$reset_color%}$(my_git_prompt) : %~\n[${ret_status}] % '
