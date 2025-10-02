@@ -113,7 +113,7 @@ function nvmuseifnot {
     fi
 }
 
-nvmuseifnot
+# nvmuseifnot
 
 alias cdg='cd ~/git'
 alias cdh='cd ~'

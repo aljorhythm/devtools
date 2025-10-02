@@ -47,3 +47,5 @@ grep -v 'origin/master' | \
 grep -v 'origin/HEAD' | \
 sed 's|origin/||' | \
 xargs -n 1 -I % git push origin --delete %
+
+git archive --format=zip -o $(basename $(pwd)).zip master && mv $(basename $(pwd)).zip ~/Downloads
