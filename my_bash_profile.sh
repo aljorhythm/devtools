@@ -10,6 +10,8 @@ alias dls='cd ~/Downloads'
 alias t="open -a /System/Applications/Utilities/Terminal.app ."
 alias it="open -a /Applications/iTerm.app ."
 alias mk="make"
+alias ls1="ls"
+
 # docker
 echo docker shortcuts
 alias docker-rmi='docker rmi -f $(docker images -a -q)'
