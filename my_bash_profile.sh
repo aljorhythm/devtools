@@ -1,4 +1,4 @@
-echo running my_bash_profile
+echo "[my_bash_profile.sh] running my_bash_profile"
 
 alias se='source .envrc'
 alias cnvs='git commit --no-verify -S'
@@ -13,7 +13,7 @@ alias mk="make"
 alias ls1="ls"
 
 # docker
-echo docker shortcuts
+# echo docker shortcuts
 alias docker-rmi='docker rmi -f $(docker images -a -q)'
 alias docker-stop='docker stop $(docker ps -aq)'
 alias cont-reset='docker-stop && docker-rmc'
@@ -411,7 +411,15 @@ function gitignore-init() {
     done
 }
 
-export GPG_TTY=$(tty)
+function setup-sign-commit() {
+    export GPG_TTY=$(tty)
+}
+
+setup-sign-commit
+
+function cbranch() {
+  git switch "$(git branch --format="%(refname:short)" | fzf)"
+}
 
 #dozzle
 
@@ -511,7 +519,7 @@ PROMPT=$PROMPT_SHORT
 
 # PROMPT=$'\n$(ssh_connection)%{$fg_bold[green]%}%n@%m%{$reset_color%}$(my_git_prompt) : %~\n[${ret_status}] % '
 
-envrciffound() {
+function envrciffound() {
     if [[ -f ".envrc" ]]; then
         echo sourcing .envrc
         source .envrc
@@ -555,6 +563,6 @@ function git-sync {
 
 alias gpnv='git push --no-verify'
 
-if command -v mcfly &> /dev/null; then
-    eval "$(mcfly init zsh)"
-fi
+# if command -v mcfly &> /dev/null; then
+#     eval "$(mcfly init zsh)"
+# fi
