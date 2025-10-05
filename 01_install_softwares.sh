@@ -21,5 +21,5 @@ sh 'backup_install.sh'
 ## LAST
 # SIGN IN MANUALLY on App Store if you are on a mac before executing
 
-# mac 
+# mac
 sh '01-01_install_mac_softwares.sh'

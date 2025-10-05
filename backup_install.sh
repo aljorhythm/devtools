@@ -1,7 +1,7 @@
 # brew
 
-brew bundle 
+brew bundle
 
 # npm
 
-xargs npm install --global < npm.global.txt
+xargs npm install --global <npm.global.txt
