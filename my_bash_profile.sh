@@ -54,6 +54,8 @@ function sync-remote() {
 	# git stash pop
 }
 
+
+
 alias firstlinkinreadme="grep -oE 'http[s]?://\S+' README.md | head -1 | xargs open"
 alias openlink="firstlinkinreadme"
 alias firstlinkindev="grep -oE 'http[s]?://\S+' dev/link | head -1 | xargs open"
@@ -70,6 +72,18 @@ alias st='open -a /Applications/Sourcetree.app "$(git rev-parse --show-toplevel)
 alias vs='open -a /Applications/Visual\ Studio\ Code.app/'
 alias rbmine='open /Applications/RubyMine.app/'
 alias gop='git-open'
+
+function trunk {
+	local main_branch=$(git_main_branch)
+	if [ -n "$main_branch" ]; then
+		echo "Checking out $main_branch..."
+		git checkout "$main_branch"
+	else
+		echo "Could not determine main branch"
+		return 1
+	fi
+}
+
 function open-remote {
 	if [[ -f "dev/.remote" ]]; then
 		open $(cat dev/.remote)
@@ -569,6 +583,34 @@ alias gpnv='git push --no-verify'
 if command -v mcfly &>/dev/null; then
 	eval "$(mcfly init zsh)"
 fi
+
+function remote-merged() {
+	local main_branch=$(git_main_branch)
+	git fetch --prune
+	
+	local merged_branches=($(git branch -r --merged origin/$main_branch | \
+		grep -v "origin/$main_branch" | \
+		grep -v "origin/master" | \
+		grep -v "origin/develop" | \
+		grep -v "origin/HEAD" | \
+		sed 's|origin/||' | \
+		tr -d ' '))
+
+	if [ ${#merged_branches[@]} -eq 0 ]; then
+		echo "No merged remote branches found"
+		return 0
+	fi
+
+	echo "Merged remote branches:"
+	
+	local choice=$(printf '%s\n' "${merged_branches[@]}" | fzf --prompt="Select branch to delete: ")
+	if [ -n "$choice" ]; then
+		echo "Deleting remote branch: $choice"
+		git push origin --delete "$choice" --no-verify
+	else
+		echo "No branch selected"
+	fi
+}
 
 function do-ssh-agent {
 
