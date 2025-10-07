@@ -37,6 +37,21 @@ matches:
   - trigger: ":cross"
     replace: "❌"
 
+  - trigger: ":hmm"
+    replace: "🤔"
+
+  - trigger: ":ok"
+    replace: "👌"
+
+  - trigger: ":sun"
+    replace: "☀️"
+  
+  - trigger: ":morning"
+    replace: "🌅"
+
+  - trigger: ":love"
+    replace: "❤️"
+
   - trigger: ":1038"
     replace: "103879u@gmail.com"
 

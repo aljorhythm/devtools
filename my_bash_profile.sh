@@ -160,6 +160,11 @@ alias f='git fetch'
 #     echo no .nvmrc found
 # fi
 
+function fnm-setup {
+	eval "$(fnm env --use-on-cd --shell zsh)"
+	fnm use
+}
+
 v() {
 	set -x
 	node -v
@@ -589,29 +594,55 @@ if command -v mcfly &>/dev/null; then
 	eval "$(mcfly init zsh)"
 fi
 
-function remote-merged() {
+function dbranch-merged() {
 	local main_branch=$(git_main_branch)
 	git fetch --prune
 	
-	local merged_branches=($(git branch -r --merged origin/$main_branch | \
+	# Get merged remote branches
+	local merged_remote_branches=($(git branch -r --merged origin/$main_branch | \
 		grep -v "origin/$main_branch" | \
 		grep -v "origin/master" | \
 		grep -v "origin/develop" | \
 		grep -v "origin/HEAD" | \
 		sed 's|origin/||' | \
 		tr -d ' '))
+	
+	# Get merged local branches
+	local merged_local_branches=($(git branch --merged $main_branch | \
+		grep -v "^\\*" | \
+		grep -v "$main_branch" | \
+		grep -v "master" | \
+		grep -v "develop" | \
+		tr -d ' '))
 
-	if [ ${#merged_branches[@]} -eq 0 ]; then
-		echo "No merged remote branches found"
+	# Combine both lists with prefixes
+	local all_branches=()
+	for branch in "${merged_remote_branches[@]}"; do
+		all_branches+=("remote: $branch")
+	done
+	for branch in "${merged_local_branches[@]}"; do
+		all_branches+=("local: $branch")
+	done
+
+	if [ ${#all_branches[@]} -eq 0 ]; then
+		echo "No merged branches found"
 		return 0
 	fi
 
-	echo "Merged remote branches:"
+	echo "Merged branches (local and remote):"
 	
-	local choice=$(printf '%s\n' "${merged_branches[@]}" | fzf --prompt="Select branch to delete: ")
+	local choice=$(printf '%s\n' "${all_branches[@]}" | fzf --prompt="Select branch to delete: ")
 	if [ -n "$choice" ]; then
-		echo "Deleting remote branch: $choice"
-		git push origin --delete "$choice" --no-verify
+		local branch_type=$(echo "$choice" | cut -d: -f1)
+		local branch_name=$(echo "$choice" | cut -d: -f2 | tr -d ' ')
+		
+		if [ "$branch_type" = "remote" ]; then
+			echo "Deleting remote branch: $branch_name"
+			git push origin --delete "$branch_name" --no-verify
+		elif [ "$branch_type" = "local" ]; then
+			echo "Deleting local branch: $branch_name"
+			git branch -D "$branch_name"
+		fi
 	else
 		echo "No branch selected"
 	fi

@@ -19,7 +19,7 @@ echo "------"
 
 # Only move espanso config if directory exists
 if [ -d "$HOME/Library/Application Support/espanso/match" ]; then
-	mv $SCRIPT_PATH/espanso/match/base.yml "$HOME/Library/Application Support/espanso/match/base.yml"
+	cp $SCRIPT_PATH/espanso/match/base.yml "$HOME/Library/Application Support/espanso/match/base.yml"
 	echo "✅ Moved espanso config to $HOME/Library/Application Support/espanso/match/base.yml"
 
 	# Restart espanso if command exists
