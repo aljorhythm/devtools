@@ -23,3 +23,4 @@ matches:
   - trigger: ":espanso"
     replace: "Hi there!"
 ...
+
