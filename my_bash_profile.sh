@@ -2,6 +2,7 @@ echo "[my_bash_profile.sh] running my_bash_profile"
 
 alias se='source .envrc'
 alias cnvs='git commit --no-verify -S'
+alias acnv='git add . && git commit --no-verify'
 alias o='open .'
 alias e=exit
 alias dls='cd ~/Downloads'
@@ -98,6 +99,10 @@ function amd {
 
 function amdne {
 	git commit -S --amend --no-verify --no-edit
+}
+
+function aamdne {
+	git add . && git commit -S --amend --no-verify --no-edit
 }
 
 function amdp {
