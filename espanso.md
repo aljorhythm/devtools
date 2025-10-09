@@ -24,3 +24,7 @@ matches:
     replace: "Hi there!"
 ...
 
+<<<<<<< Updated upstream
+=======
+:fdate
+>>>>>>> Stashed changes
