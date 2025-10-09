@@ -37,6 +37,9 @@ matches:
   - trigger: ":cross"
     replace: "❌"
 
+  - trigger: ":cljs"
+    replace: "console.log(JSON.stringify())"
+
   - trigger: ":hmm"
     replace: "🤔"
 
