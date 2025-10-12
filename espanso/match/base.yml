@@ -36,6 +36,12 @@ matches:
 
   - trigger: ":cross"
     replace: "❌"
+  
+  - trigger: ":fail"
+    replace: "❌"
+    
+  - trigger: ":?"
+    replace: "🤷‍♂️"
 
   - trigger: ":cljs"
     replace: "console.log(JSON.stringify())"

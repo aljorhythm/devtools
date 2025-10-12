@@ -99,6 +99,11 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-export PATH="/usr/local/sbin:$PATH"
+export PATH="$HOME/.local/bin:/usr/local/sbin:$PATH"
 
 # eval "$(direnv hook zsh)"
+
+# echo $HOME
+
+# for claude?
+# export PATH="$HOME/.local/bin:$PATH"
