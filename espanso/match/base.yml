@@ -49,6 +49,9 @@ matches:
   - trigger: ":hmm"
     replace: "🤔"
 
+  - trigger: ":party"
+    replace: "🎉"
+
   - trigger: ":ok"
     replace: "👌"
 
