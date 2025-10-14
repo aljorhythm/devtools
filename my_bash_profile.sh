@@ -540,8 +540,9 @@ git_ahead_behind_summary() {
 		echo " | $track_str | $main_str | "
 	fi
 }
+PROMPT_SHORT=$'%F{green}%*%f %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f%F{green}$(my_current_branch) $(git_prompt_short_sha) %F{red}$(get_last_commit_msg)%f$(git_ahead_behind_summary)%F{blue}$(envString)%f %F{yellow}%?%f $ '
 
-PROMPT_SHORT=$'%F{green}%*%f %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f%F{green}$(my_current_branch) $(git_prompt_short_sha) %F{red}$(get_last_commit_msg)%f$(git_ahead_behind_summary)%F{blue}$(envString)%f $ '
+# PROMPT_SHORT=$'%F{green}%*%f %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f%F{green}$(my_current_branch) $(git_prompt_short_sha) %F{red}$(get_last_commit_msg)%f$(git_ahead_behind_summary)%F{blue}$(envString)%f $ '
 PROMPT=$PROMPT_SHORT
 
 # PROMPT=$'\n$(ssh_connection)%{$fg_bold[green]%}%n@%m%{$reset_color%}$(my_git_prompt) : %~\n[${ret_status}] % '
