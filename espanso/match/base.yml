@@ -52,6 +52,12 @@ matches:
   - trigger: ":hmm"
     replace: "🤔"
 
+  - trigger: ":alert"
+    replace: "🚨"
+
+  - trigger: ":bell"
+    replace: "🚨"
+
   - trigger: ":party"
     replace: "🎉"
 
