@@ -39,7 +39,10 @@ matches:
   
   - trigger: ":fail"
     replace: "❌"
-    
+
+  - trigger: ":think"
+    replace: "🤔"
+
   - trigger: ":?"
     replace: "🤷‍♂️"
 

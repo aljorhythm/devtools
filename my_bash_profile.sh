@@ -165,7 +165,7 @@ function fnm-setup {
 	fnm use
 }
 
-v() {
+function v() {
 	set -x
 	node -v
 	npm -v
