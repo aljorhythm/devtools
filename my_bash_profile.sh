@@ -71,6 +71,7 @@ alias downloads="cd ~/Downloads"
 alias cpssh='cat ~/.ssh/id_rsa.pub | pbcopy'
 alias st='open -a /Applications/Sourcetree.app "$(git rev-parse --show-toplevel)"'
 alias vs='open -a /Applications/Visual\ Studio\ Code.app/'
+alias cursor='open -a /Applications/Cursor.app/'
 alias rbmine='open /Applications/RubyMine.app/'
 alias gop='git-open'
 
@@ -204,6 +205,7 @@ formatrb() {
 
 # git
 alias flyhome='cd "$(git rev-parse --show-toplevel)"'
+alias fhome='cd "$(git rev-parse --show-toplevel)"'
 alias vshome='vs "$(git rev-parse --show-toplevel)"'
 alias checkout="git checkout"
 alias cherry-pick="git cherry-pick"
