@@ -501,7 +501,8 @@ prompt_main_branch() {
 }
 
 cplastgitmsg() {
-	git log -1 --pretty=%B | awk '{print $1; exit}' | tr -d '\n' | pbcopy
+	# git log -1 --pretty=%B | awk '{print $1; exit}' | tr -d '\n' | pbcopy
+	git log -1 --pretty=%B | pbcopy
 }
 
 envString() {
