@@ -19,7 +19,7 @@
 toggle_key: META
 # You can also disable the toggle key completely with
 # toggle_key: OFF
-search_shortcut: META+SHIFT+SPACE
+search_shortcut: ALT+SHIFT+SPACE
 # --- Injection Backend
 # Espanso supports multiple ways of injecting text into applications. Each of
 # them has its quirks, therefore you may want to change it if you are having problems.

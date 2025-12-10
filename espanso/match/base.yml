@@ -66,6 +66,12 @@ matches:
 
   - trigger: ":sun"
     replace: "☀️"
+
+  - trigger: ":wave"
+    replace: "👋"
+
+  - trigger: ":smile"
+    replace: "😀"
   
   - trigger: ":morning"
     replace: "🌅"
