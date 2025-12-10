@@ -3,6 +3,7 @@ echo "[my_bash_profile.sh] running my_bash_profile"
 alias se='source .envrc'
 alias cnvs='git commit --no-verify -S'
 alias acnv='git add . && git commit --no-verify'
+alias acp='git add . && git commit && git push'
 alias o='open .'
 alias e=exit
 alias dls='cd ~/Downloads'
