@@ -1,4 +1,4 @@
-echo "[my_bash_profile.sh] running my_bash_profile"
+echo "[my_bash_profile.sh] running my_bash_profile.sh"
 
 alias se='source .envrc'
 alias cnvs='git commit --no-verify -S'
