@@ -75,6 +75,9 @@ matches:
 
   - trigger: ":1038"
     replace: "103879u@gmail.com"
+  
+  - trigger: "jawx"
+    replace: "joel.limjing@airwallex.com"
 
   - trigger: ":fdate"
     replace: "{{year}} {{month_name}} {{day}} {{yyyymmdd}}"
