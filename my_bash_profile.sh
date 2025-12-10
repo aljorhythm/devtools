@@ -4,6 +4,16 @@ alias se='source .envrc'
 alias cnvs='git commit --no-verify -S'
 alias acnv='git add . && git commit --no-verify'
 alias acp='git add . && git commit && git push'
+
+function acp {
+	echo "➕ adding all changes"
+	git add . || return 1
+	echo "✏️ committing changes"
+	git commit || return 1
+	echo "🚀 pushing changes"
+	git push || return 1
+}
+
 alias o='open .'
 alias e=exit
 alias dls='cd ~/Downloads'
