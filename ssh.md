@@ -16,3 +16,10 @@ alias k=ssh-dev
 
 ssh-add --apple-use-keychain ~/.ssh/id_rsa
 ssh-add ~/.ssh/id_rsa
+
+Host github.com
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_ed25519
+  IdentityFile ~/.ssh/103879u
+
