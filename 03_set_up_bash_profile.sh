@@ -6,12 +6,16 @@ SCRIPT_PATH="$(
 FILE=$SCRIPT_PATH/.zshrc.out
 
 LINE="if [[ -f \"$SCRIPT_PATH/.this_profile.sh\" ]]; then source \"$SCRIPT_PATH/.this_profile.sh\"; fi"
+# Ensure file ends with newline before appending
+[ -s "$FILE" ] && [ -z "$(tail -c 1 "$FILE")" ] || echo "" >> "$FILE"
 grep -q "$LINE" "$FILE" || echo "$LINE" >>"$FILE"
 
 LINE="if [[ -f \"$SCRIPT_PATH/my_bash_profile.sh\" ]]; then source \"$SCRIPT_PATH/my_bash_profile.sh\"; fi"
 
 echo $LINE
 echo appending to zshrc $FILE
+# Ensure file ends with newline before appending
+[ -s "$FILE" ] && [ -z "$(tail -c 1 "$FILE")" ] || echo "" >> "$FILE"
 grep -q "$LINE" "$FILE" || echo "$LINE" >>"$FILE"
 
 cat "$FILE"

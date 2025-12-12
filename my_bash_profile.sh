@@ -1,4 +1,4 @@
-echo "[my_bash_profile.sh] running my_bash_profile.sh"
+echo "[my_bash_profile.sh] running"
 
 alias se='source .envrc'
 alias cnvs='git commit --no-verify -S'
@@ -21,6 +21,7 @@ alias dls='cd ~/Downloads'
 alias t="open -a /System/Applications/Utilities/Terminal.app ."
 alias it="open -a /Applications/iTerm.app ."
 alias mk="make"
+alias mks="make setup"
 alias ls1="ls"
 
 # docker
