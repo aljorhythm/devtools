@@ -85,6 +85,9 @@ matches:
   - trigger: "jawx"
     replace: "joel.limjing@airwallex.com"
 
+  - trigger: "pmd"
+    replace: "promt.md"
+
   - trigger: ":fdate"
     replace: "{{year}} {{month_name}} {{day}} {{yyyymmdd}}"
     vars:
