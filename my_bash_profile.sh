@@ -106,20 +106,24 @@ function open-remote {
 }
 
 function amd {
-	git commit -S --amend --no-verify
+	# git commit -S --amend --no-verify
+	git commit --amend --no-verify
 }
 
 function amdne {
-	git commit -S --amend --no-verify --no-edit
+	# git commit -S --amend --no-verify --no-edit
+	git commit --amend --no-verify --no-edit
 }
 
 function aamdne {
-	git add . && git commit -S --amend --no-verify --no-edit
+	# git add . && git commit -S --amend --no-verify --no-edit
+	git add . && git commit --amend --no-verify --no-edit
 }
 
 function amdp {
 	git add .
-	git commit -S --amend --no-verify --no-edit
+	# git commit -S --amend --no-verify --no-edit
+	git commit --amend --no-verify --no-edit
 	gpfnv
 }
 
@@ -532,6 +536,7 @@ git_ahead_behind_summary() {
 	if [ -d .git ]; then
 		local branch track track_counts track_behind track_ahead track_str
 		local main_branch main_counts main_behind main_ahead main_str
+		local develop_counts develop_behind develop_ahead develop_str
 		branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
 		track=$(git rev-parse --abbrev-ref --symbolic-full-name ${branch}@{u} 2>/dev/null)
 		main_branch=$(git_main_branch)
@@ -539,6 +544,8 @@ git_ahead_behind_summary() {
 		track_ahead=0
 		main_behind=0
 		main_ahead=0
+		develop_behind=0
+		develop_ahead=0
 		if [ -n "$track" ]; then
 			track_counts=$(git rev-list --left-right --count ${track}...HEAD 2>/dev/null)
 			track_behind=$(echo $track_counts | awk '{print $1}')
@@ -551,7 +558,17 @@ git_ahead_behind_summary() {
 		fi
 		track_str="%F{yellow}track:%f %F{red}-$track_behind%f %F{green}+${track_ahead}%f"
 		main_str="%F{yellow}$main_branch:%f %F{red}-$main_behind%f %F{green}+${main_ahead}%f"
-		echo " | $track_str | $main_str | "
+		
+		# Check for develop branch if it exists and is different from main
+		if git show-ref --verify --quiet refs/remotes/origin/develop && [ "$main_branch" != "develop" ]; then
+			develop_counts=$(git rev-list --left-right --count origin/develop...HEAD 2>/dev/null)
+			develop_behind=$(echo $develop_counts | awk '{print $1}')
+			develop_ahead=$(echo $develop_counts | awk '{print $2}')
+			develop_str="%F{yellow}develop:%f %F{red}-$develop_behind%f %F{green}+${develop_ahead}%f"
+			echo " | $track_str | $main_str | $develop_str | "
+		else
+			echo " | $track_str | $main_str | "
+		fi
 	fi
 }
 PROMPT_SHORT=$'%F{green}%*%f %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f%F{green}$(my_current_branch) $(git_prompt_short_sha) %F{red}$(get_last_commit_msg)%f$(git_ahead_behind_summary)%F{blue}$(envString)%f %F{yellow}%?%f $ '
@@ -583,8 +600,9 @@ alias omr='glab mr view --web'
 
 function gpfnv {
 	branch=$(git rev-parse --abbrev-ref HEAD)
-	if [ "$branch" = "main" ] || [ "$branch" = "master" ]; then
-		echo "❌ Error: You are on the main or master branch (current: $branch)."
+	main_branch=$(git_main_branch)
+	if [ "$branch" = "main" ] || [ "$branch" = "master" ] || [ "$branch" = "$main_branch" ]; then
+		echo "❌ Error: You are on the default branch (current: $branch)."
 		return 1
 	fi
 	git push --force --no-verify
