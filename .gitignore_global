@@ -12,3 +12,5 @@ temp.out
 .envrc*
 .shortcuts.sh
 dev
+.vscode
+*.hprof

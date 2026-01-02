@@ -30,7 +30,23 @@ alias docker-rmi='docker rmi -f $(docker images -a -q)'
 alias docker-stop='docker stop $(docker ps -aq)'
 alias cont-reset='docker-stop && docker-rmc'
 alias docker-rmc='docker container rm --force $(docker container ls -aq)'
-alias docker-clean='docker system prune -f; docker volume prune -f; docker-stop; docker-rmc; docker-rmi; docker images; docker container ls'
+alias docker-rmv='docker volume rm -f $(docker volume ls -q)'
+
+function docker-clean() {
+	docker-stop
+	docker-rmc
+	docker-rmi
+	docker-rmv
+	docker system prune -f
+	docker volume prune -f
+	echo "\nRemaining images:"
+	docker images
+	echo "\nRemaining containers:"
+	docker container ls
+	echo "\nRemaining volumes:"
+	docker volume ls
+}
+
 alias dcu="docker compose up"
 alias dcd="docker compose down"
 alias container='docker container'
@@ -85,6 +101,21 @@ alias vs='open -a /Applications/Visual\ Studio\ Code.app/'
 alias cursor='open -a /Applications/Cursor.app/'
 alias rbmine='open /Applications/RubyMine.app/'
 alias gop='git-open'
+alias bd='git branch -D'
+
+function git-discard {
+	local timestamp=$(date +%Y%m%d_%H%M%S)
+	local patch_file="/tmp/git-discard-${timestamp}.patch"
+	
+	git reset
+	echo "💾 Saving patch to: $patch_file"
+	git diff > "$patch_file"
+	git checkout .
+	git clean -fd
+	echo "✅ Changes discarded. Patch saved to: $patch_file"
+	echo "📝 Writing directory to $patch_file.meta"
+	pwd > "$patch_file.meta"
+}
 
 function trunk {
 	local main_branch=$(git_main_branch)

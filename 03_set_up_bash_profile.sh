@@ -27,6 +27,12 @@ if [ -d "$HOME/Library/Application Support/espanso/match" ]; then
 	cp $SCRIPT_PATH/espanso/config/default.yml "$HOME/Library/Application Support/espanso/config/default.yml"
 	echo "✅ Moved espanso config to $HOME/Library/Application Support/espanso/match/base.yml"
 	echo "✅ Moved espanso config to $HOME/Library/Application Support/espanso/config/default.yml"
+	
+	# Copy personal.yml if it exists
+	if [ -f "$SCRIPT_PATH/espanso/match/personal.yml" ]; then
+		cp $SCRIPT_PATH/espanso/match/personal.yml "$HOME/Library/Application Support/espanso/match/personal.yml"
+		echo "✅ Moved espanso personal config to $HOME/Library/Application Support/espanso/match/personal.yml"
+	fi
 
 	# Restart espanso if command exists
 	if command -v espanso &> /dev/null; then
