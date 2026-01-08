@@ -717,3 +717,9 @@ function do-ssh-agent {
 	ssh-add --apple-load-keychain
 	ssh-add --apple-use-keychain /Users/joel.lim/.ssh/post_nx
 }
+
+
+function temp {
+	touch /tmp/tempfile.txt
+	vs /tmp/tempfile.txt
+}
