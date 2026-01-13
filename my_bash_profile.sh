@@ -546,6 +546,14 @@ prompt_main_branch() {
 	fi
 }
 
+archive_downloads() {
+	local date_folder=$(date +%Y%m%d)
+	local archive_path=~/Documents/downloads/$date_folder
+	mkdir -p "$archive_path"
+	mv ~/Downloads/* "$archive_path"
+	ls "$archive_path"
+}
+
 cplastgitmsg() {
 	# git log -1 --pretty=%B | awk '{print $1; exit}' | tr -d '\n' | pbcopy
 	git log -1 --pretty=%B | pbcopy
