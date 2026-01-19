@@ -104,6 +104,7 @@ alias gpo="git pull origin"
 alias gpod="git pull origin develop"
 alias gsubco="git submodule update --init --recursive"
 alias lcm="git log -1 --pretty=%B | pbcopy"
+alias rcm="git log -1 --pretty=%B @{u} | pbcopy"
 alias flcm="git log -1 --pretty=%B | head -n1 | awk '{print $1;}'"
 alias h="cd ~"
 alias f='git fetch'
