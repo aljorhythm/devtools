@@ -61,7 +61,7 @@ matches:
   - trigger: ":party"
     replace: "🎉"
 
-  - trigger: ":ok"
+  - trigger: "]ok"
     replace: "👌"
 
   - trigger: ":sun"
