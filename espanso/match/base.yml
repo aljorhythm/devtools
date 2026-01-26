@@ -116,4 +116,12 @@ matches:
         params:
           format: "%Y%m%d"
 
+  - trigger: ":ddate"
+    replace: "{{date}}"
+    vars:
+      - name: date
+        type: date
+        params:
+          format: "%Y-%m-%d"
+
   # And much more! For more information, visit the docs: https://espanso.org/docs/

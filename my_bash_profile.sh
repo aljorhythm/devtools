@@ -300,6 +300,32 @@ function dbranch-merged() {
 	else echo "No branch selected"; fi
 }
 
+function update-gitrepos() {
+	echo "Scanning for git repositories..."
+	find "$HOME" -mindepth 1 -maxdepth 1 -type d -exec sh -c 'test -d "$1/.git" && echo "$1"' sh {} \; > ~/.gitrepos
+	echo "Updated ~/.gitrepos with $(wc -l < ~/.gitrepos) repositories"
+}
+
+function repo() {
+	local dir
+	dir=$(cat ~/.gitrepos 2>/dev/null | fzf --prompt="Select git repository: ")
+	if [ -n "$dir" ]; then
+		(cd "$dir" && git-open)
+	else
+		echo "No directory selected."
+	fi
+}
+
+function ovs() {
+	local dir
+	dir=$(cat ~/.gitrepos 2>/dev/null | fzf --prompt="Select git repository: ")
+	if [ -n "$dir" ]; then
+		open -a /Applications/Visual\ Studio\ Code.app "$dir"
+	else
+		echo "No directory selected."
+	fi
+}
+
 function sync-remote() {
 	local current_branch=$(git branch --show-current)
 
