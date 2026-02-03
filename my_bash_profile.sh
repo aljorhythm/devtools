@@ -302,8 +302,8 @@ function dbranch-merged() {
 
 function update-gitrepos() {
 	echo "Scanning for git repositories..."
-	find "$HOME" -mindepth 1 -maxdepth 1 -type d -exec sh -c 'test -d "$1/.git" && echo "$1"' sh {} \; > ~/.gitrepos
-	echo "Updated ~/.gitrepos with $(wc -l < ~/.gitrepos) repositories"
+	find "$HOME" -mindepth 1 -maxdepth 1 -type d -exec sh -c 'test -d "$1/.git" && echo "$1"' sh {} \; >~/.gitrepos
+	echo "Updated ~/.gitrepos with $(wc -l <~/.gitrepos) repositories"
 }
 
 function repo() {

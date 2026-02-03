@@ -7,7 +7,7 @@ FILE=$SCRIPT_PATH/.zshrc.out
 
 LINE="if [[ -f \"$SCRIPT_PATH/.this_profile.sh\" ]]; then source \"$SCRIPT_PATH/.this_profile.sh\"; fi"
 # Ensure file ends with newline before appending
-[ -s "$FILE" ] && [ -z "$(tail -c 1 "$FILE")" ] || echo "" >> "$FILE"
+[ -s "$FILE" ] && [ -z "$(tail -c 1 "$FILE")" ] || echo "" >>"$FILE"
 grep -q "$LINE" "$FILE" || echo "$LINE" >>"$FILE"
 
 LINE="if [[ -f \"$SCRIPT_PATH/my_bash_profile.sh\" ]]; then source \"$SCRIPT_PATH/my_bash_profile.sh\"; fi"
@@ -15,7 +15,7 @@ LINE="if [[ -f \"$SCRIPT_PATH/my_bash_profile.sh\" ]]; then source \"$SCRIPT_PAT
 echo $LINE
 echo appending to zshrc $FILE
 # Ensure file ends with newline before appending
-[ -s "$FILE" ] && [ -z "$(tail -c 1 "$FILE")" ] || echo "" >> "$FILE"
+[ -s "$FILE" ] && [ -z "$(tail -c 1 "$FILE")" ] || echo "" >>"$FILE"
 grep -q "$LINE" "$FILE" || echo "$LINE" >>"$FILE"
 
 cat "$FILE"
@@ -27,7 +27,7 @@ if [ -d "$HOME/Library/Application Support/espanso/match" ]; then
 	cp $SCRIPT_PATH/espanso/config/default.yml "$HOME/Library/Application Support/espanso/config/default.yml"
 	echo "✅ Moved espanso config to $HOME/Library/Application Support/espanso/match/base.yml"
 	echo "✅ Moved espanso config to $HOME/Library/Application Support/espanso/config/default.yml"
-	
+
 	# Copy personal.yml if it exists
 	if [ -f "$SCRIPT_PATH/espanso/match/personal.yml" ]; then
 		cp $SCRIPT_PATH/espanso/match/personal.yml "$HOME/Library/Application Support/espanso/match/personal.yml"
@@ -35,7 +35,7 @@ if [ -d "$HOME/Library/Application Support/espanso/match" ]; then
 	fi
 
 	# Restart espanso if command exists
-	if command -v espanso &> /dev/null; then
+	if command -v espanso &>/dev/null; then
 		echo "🔄 Restarting espanso..."
 		espanso restart
 	fi
