@@ -623,6 +623,12 @@ function temp {
 	touch /tmp/tempfile.txt
 	vs /tmp/tempfile.txt
 }
+function tempjson {
+	touch /tmp/tempfile.json
+	vs /tmp/tempfile.json
+}
+
+
 function envrciffound() { if [[ -f ".envrc" ]]; then
 	echo sourcing .envrc
 	source .envrc
