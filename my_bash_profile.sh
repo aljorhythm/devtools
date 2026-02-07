@@ -556,36 +556,32 @@ function envString() { if [ -n "$ENV" ]; then echo " ENV: $ENV"; fi; }
 function get_last_commit_msg() { if git rev-parse --is-inside-work-tree &>/dev/null; then git log -1 --pretty=%s 2>/dev/null; fi; }
 function git_ahead_behind_summary() { if [ -d .git ]; then
 	local branch track track_counts track_behind track_ahead track_str
-	local main_branch main_counts main_behind main_ahead main_str
-	local develop_counts develop_behind develop_ahead develop_str
+	local target target_counts target_behind target_ahead target_str
 	branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
 	track=$(git rev-parse --abbrev-ref --symbolic-full-name ${branch}@{u} 2>/dev/null)
-	main_branch=$(git_main_branch)
+	# Determine target branch: use target_branch function if it exists, otherwise git default branch
+	if command -v target_branch &>/dev/null; then
+		target=$(target_branch)
+	else
+		target=$(git_main_branch)
+	fi
 	track_behind=0
 	track_ahead=0
-	main_behind=0
-	main_ahead=0
-	develop_behind=0
-	develop_ahead=0
+	target_behind=0
+	target_ahead=0
 	if [ -n "$track" ]; then
 		track_counts=$(git rev-list --left-right --count ${track}...HEAD 2>/dev/null)
 		track_behind=$(echo $track_counts | awk '{print $1}')
 		track_ahead=$(echo $track_counts | awk '{print $2}')
 	fi
-	if [ -n "$main_branch" ] && git show-ref --verify --quiet refs/remotes/origin/$main_branch; then
-		main_counts=$(git rev-list --left-right --count origin/$main_branch...HEAD 2>/dev/null)
-		main_behind=$(echo $main_counts | awk '{print $1}')
-		main_ahead=$(echo $main_counts | awk '{print $2}')
+	if [ -n "$target" ] && git show-ref --verify --quiet refs/remotes/origin/$target; then
+		target_counts=$(git rev-list --left-right --count origin/$target...HEAD 2>/dev/null)
+		target_behind=$(echo $target_counts | awk '{print $1}')
+		target_ahead=$(echo $target_counts | awk '{print $2}')
 	fi
 	track_str="%F{yellow}track:%f %F{red}-$track_behind%f %F{green}+${track_ahead}%f"
-	main_str="%F{yellow}$main_branch:%f %F{red}-$main_behind%f %F{green}+${main_ahead}%f"
-	if git show-ref --verify --quiet refs/remotes/origin/develop && [ "$main_branch" != "develop" ]; then
-		develop_counts=$(git rev-list --left-right --count origin/develop...HEAD 2>/dev/null)
-		develop_behind=$(echo $develop_counts | awk '{print $1}')
-		develop_ahead=$(echo $develop_counts | awk '{print $2}')
-		develop_str="%F{yellow}develop:%f %F{red}-$develop_behind%f %F{green}+${develop_ahead}%f"
-		echo " | $track_str | $main_str | $develop_str | "
-	else echo " | $track_str | $main_str | "; fi
+	target_str="%F{yellow}$target:%f %F{red}-$target_behind%f %F{green}+${target_ahead}%f"
+	echo " | $track_str | $target_str | "
 fi; }
 PROMPT_FULL=$'%{$fg_bold[white]%}%{$bg[red]%} END %{$reset_color%}\n$(my_prompt)'
 PROMPT_SHORT=$'%F{green}%*%f %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f%F{green}$(my_current_branch) $(git_prompt_short_sha) %F{red}$(get_last_commit_msg)%f$(git_ahead_behind_summary)%F{blue}$(envString)%f %F{yellow}%?%f $ '
