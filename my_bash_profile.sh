@@ -616,12 +616,12 @@ function gitignore-init() {
 function setup-sign-commit() { export GPG_TTY=$(tty); }
 setup-sign-commit
 function temp {
-	touch /tmp/tempfile.txt
-	vs /tmp/tempfile.txt
+	touch ~/Downloads/tempfile.txt
+	vs ~/Downloads/tempfile.txt
 }
 function tempjson {
-	touch /tmp/tempfile.json
-	vs /tmp/tempfile.json
+	touch ~/Downloads/tempfile.json
+	vs ~/Downloads/tempfile.json
 }
 
 

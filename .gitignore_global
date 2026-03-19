@@ -14,3 +14,4 @@ temp.out
 dev
 .vscode
 *.hprof
+.airboard-token
