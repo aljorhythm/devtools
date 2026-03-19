@@ -4,7 +4,7 @@ setup:
 	cp .zshrc.out ~/.zshrc
 	cp .vimrc ~/.vimrc
 	cp .vimrc ~/.ideavimrc
-	cp .gitignore_global ~/.gitignore_global
+	cat .gitignore_global local.gitignore_global 2>/dev/null > ~/.gitignore_global || cp .gitignore_global ~/.gitignore_global
 	git config --global core.excludesFile ~/.gitignore_global
 
 backup:
