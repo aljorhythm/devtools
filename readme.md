@@ -1,5 +1,8 @@
-information about my workspace for documentation.
-might turn in into a script? idk.
+# Devtools
+
+> **Scope:** Personal & Internet (public)
+
+Personal development tools, configurations, scripts, and documentation for public use and sharing.
 
 # zsh 
 
