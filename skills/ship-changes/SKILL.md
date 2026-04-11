@@ -1,16 +1,33 @@
 ---
 name: ship-changes
-description: Commit and push changes following repo conventions. Detects repo pattern (single-commit vs grouped) and executes appropriate workflow. Handles amend, rebase, and force-push safely.
-compatibility: Requires git. Optional: glab/gh CLI for MR/PR creation
+description: Commit and push changes following repo conventions. Detects repo pattern (single-commit vs grouped) and platform (GitLab/GitHub). Handles amend, rebase, and force-push safely.
+compatibility: Requires git. Optional: glab CLI (GitLab) or gh CLI (GitHub) for MR/PR creation
 ---
 
 # Ship Changes
 
 Interactive workflow for committing and pushing changes following repository conventions.
 
+**Platform-agnostic:** Works with GitHub, GitLab, Gitea, or any git host.
+
 ## Workflow Detection
 
-### 1. Identify Repository Pattern
+### 1. Detect Version Control Platform
+
+```bash
+# Determine which platform by checking remote URL
+REMOTE_URL=$(git remote get-url origin)
+
+if [[ "$REMOTE_URL" == *"github.com"* ]]; then
+  echo "GitHub (use 'gh' CLI)"
+elif [[ "$REMOTE_URL" == *"gitlab"* ]]; then
+  echo "GitLab (use 'glab' CLI)"
+else
+  echo "Other platform (use standard git commands)"
+fi
+```
+
+### 2. Identify Repository Pattern
 
 ```bash
 # Check if service repo (single commit per branch) or docs/notes repo (multiple logical commits)
@@ -103,17 +120,30 @@ git commit -m "type: [TICKET] description"
 git push --force-with-lease
 ```
 
-### 5. Create/Update Merge Request (Optional)
+### 5. Create/Update Merge/Pull Request (Optional)
+
+**Detect and use the appropriate CLI for your platform:**
 
 ```bash
-# GitLab
+# For GitLab repos (use glab)
 glab mr create --fill --yes --assignee @me
+glab mr update --assignee @me  # Update existing
 
-# GitHub
+# For GitHub repos (use gh)
 gh pr create --fill --assignee @me
+gh pr edit --add-assignee @me  # Update existing
 
-# If MR already exists, update it
-glab mr update --assignee @me
+# For other platforms
+# Use web interface or platform-specific CLI
+```
+
+**Quick detection:**
+```bash
+if git remote get-url origin | grep -q github; then
+  gh pr create --fill --assignee @me
+elif git remote get-url origin | grep -q gitlab; then
+  glab mr create --fill --yes --assignee @me
+fi
 ```
 
 ---
