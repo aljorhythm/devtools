@@ -273,6 +273,21 @@ function git-sync {
 	echo git checkout $1
 	git checkout $1
 }
+function git-sync-current {
+	local current_branch=$(git branch --show-current)
+	if [ -z "$current_branch" ]; then
+		echo "Error: Could not determine the current branch."
+		return 1
+	fi
+	echo git checkout HEAD^
+	git checkout HEAD^
+	echo git branch -D $current_branch
+	git branch -D $current_branch
+	echo git fetch
+	git fetch
+	echo git checkout $current_branch
+	git checkout $current_branch
+}
 function dbranch-merged() {
 	local main_branch=$(git_main_branch)
 	git fetch --prune
