@@ -1,7 +1,7 @@
 ---
 name: ship-changes
-description: Commit and push changes following repo conventions. Detects repo pattern (single-commit vs grouped) and platform (GitLab/GitHub). Handles amend, rebase, and force-push safely.
-compatibility: Requires git. Optional: glab CLI (GitLab) or gh CLI (GitHub) for MR/PR creation
+description: "Commit and push changes following repo conventions. Detects repo pattern (single-commit vs grouped) and platform (GitLab/GitHub). Handles amend, rebase, and force-push safely."
+compatibility: "Requires git. Optional: glab CLI (GitLab) or gh CLI (GitHub) for MR/PR creation"
 ---
 
 # Ship Changes
@@ -256,7 +256,6 @@ type: fix: auth: prevent token expiry race condition
 - **NEVER skip hooks** (`--no-verify`) unless explicitly requested
 - **NEVER use `--force`** alone—always use `--force-with-lease` for safety
 - **NEVER push directly to main/master/develop** (use feature branches + MR/PR workflow)
-- **After hook failure**: Create a NEW commit (don't amend after a failed hook)
 - **Test before pushing**: Run tests locally to catch issues early
 
 ---
