@@ -1,34 +1,35 @@
 ---
 name: gather-evidence
-description: "Capture screenshots of a running web app with Playwright and upload them as PR/MR evidence that renders inline — even in private repos. Hosts assets on a file server you control (private + archivable). Use when asked to screenshot, capture, gather evidence, or add screenshots to a PR."
-compatibility: "Requires curl and a Chromium/Playwright install. Optional: a self-hosted file server (dufs/nginx/Caddy) for inline-rendering uploads — see Server setup."
+description: "Capture screenshots of a running web app with Playwright and upload them as PR/MR evidence that renders inline — even in private repos — via Cloudinary. Use when asked to screenshot, capture, gather evidence, or add screenshots to a PR."
+compatibility: "Requires curl, python3, and a Chromium/Playwright install. Signed uploads also need openssl. Needs a Cloudinary account (credentials supplied via env)."
 ---
 
 # Gather Evidence — Screenshots for PRs
 
 Screenshots are good practice for every PR that touches the UI. Capture with
-Playwright, then upload with the bundled `upload-evidence.sh` — its URLs render
-inline in a PR/MR, **including private repos**, because the asset is served from
-a file server you control rather than from the (unreadable-by-camo) private repo.
+Playwright, then upload with the bundled `upload-evidence.sh` — it posts to
+Cloudinary and prints a Markdown image tag whose `secure_url` renders inline in
+a PR/MR, **including private repos** (GitHub's camo proxy can fetch a Cloudinary
+URL; it cannot fetch a private repo's `…/raw/…` link).
 
 **Reusable across repos.** This skill is self-contained — it makes no assumption
 about the host project's build system. Install it once at user scope
 (`~/.claude/skills/gather-evidence/`) and it works in any repo; the only
-per-machine config is three env vars (below). Because the working directory will
-be the *target* repo, invoke the uploader by its path inside the skill, not a
-cwd-relative one — set `SKILL_DIR` once:
+per-machine config is the Cloudinary env vars (below). Because the working
+directory will be the *target* repo, invoke the uploader by its path inside the
+skill, not a cwd-relative one — set `SKILL_DIR` once:
 
 ```bash
 SKILL_DIR=~/.claude/skills/gather-evidence    # or <repo>/.claude/skills/gather-evidence
 ```
 
-Two requirements this skill is built around:
-
-1. **Viewable from the PR** — GitHub's image proxy (camo) only renders a URL it
-   can fetch anonymously, so the server serves files back at a
-   public-but-unguessable HTTPS path.
-2. **Archivable** — every upload is a real file in a directory tree on your box,
-   browsable and backup-able forever.
+Why Cloudinary (not committing to the repo, not catbox): a private repo's
+`…/raw/…` link does **not** render in a PR (camo can't read private content);
+catbox-style anonymous public hosts are commonly blocked by sandbox policy.
+Cloudinary returns a `secure_url` that renders. The URL is public-but-unguessable
+(not listed/indexed) — a truly signed/private URL would not render inline, which
+is inherent to embedding images in Markdown. Don't upload secrets or sensitive
+data.
 
 ## Taking Screenshots
 
@@ -92,23 +93,34 @@ await page.addInitScript(() => {
 
 ## Uploading and adding to the PR
 
+Credentials come from the **environment** — never inline them in a script or
+commit them. Pick one of two modes:
+
 ```bash
-export EVIDENCE_BASE_URL=https://evidence.example.com
-export EVIDENCE_AUTH='Bearer <token>'     # full Authorization header value
-# optional: export EVIDENCE_PUBLIC_URL=https://evidence.example.com
+export CLOUDINARY_CLOUD_NAME=<cloud>
+
+# Signed mode — uses your API key + secret:
+export CLOUDINARY_API_KEY=<key>
+export CLOUDINARY_API_SECRET=<secret>
+
+# …OR unsigned mode — uses an unsigned upload preset, no secret needed (preferred
+# if you'd rather not expose the secret at all). Create the preset in the
+# Cloudinary console: Settings → Upload → Upload presets → Add, Signing = Unsigned.
+# export CLOUDINARY_UPLOAD_PRESET=<preset>
+
+# optional: target folder in your account (default: pr-evidence)
+# export EVIDENCE_FOLDER=pr-evidence
 
 "$SKILL_DIR/scripts/upload-evidence.sh" .screenshots/home.png "Home page"
-# => ![Home page](https://evidence.example.com/pr-evidence/20260622-a1b2c3-home.png)
+# => ![Home page](https://res.cloudinary.com/<cloud>/image/upload/v1/pr-evidence/home.png)
 ```
 
-Each call prints a Markdown image tag and stores the file under
-`pr-evidence/<date>-<rand>-<name>` on the server (override the path with a third
-arg). Paste the tags into the PR body under a `## Screenshots` section.
+Each call prints a Markdown image tag. Paste the tags into the PR body under a
+`## Screenshots` section. A third arg overrides the Cloudinary folder.
 
-The script uploads with `curl -T` and an `Authorization` header — no SSH, no
-third-party account, works from sandboxes where only HTTPS (443) is open. The
-token is a hardcoded string; treat it as a write capability and keep it in env
-secrets, never committed. Do not upload credentials or sensitive data.
+> **Secret hygiene:** the API secret grants account-wide admin. Prefer unsigned
+> mode where you can. If you use signed mode, keep the secret in env secrets
+> only, and rotate it immediately if it's ever pasted into a chat/log/issue.
 
 ## Recording steps taken
 
@@ -124,38 +136,11 @@ check and trust it wasn't fabricated. Add an `## Evidence` section:
 3. `"$SKILL_DIR/scripts/upload-evidence.sh" .screenshots/home.png "Home page"`
 
 **Screenshots:**
-![Home page](https://evidence.example.com/pr-evidence/20260622-a1b2c3-home.png)
+![Home page](https://res.cloudinary.com/<cloud>/image/upload/v1/pr-evidence/home.png)
 ```
 
 If the evidence is a curl response or log output rather than an image, paste it
 directly in the PR body as a fenced code block.
-
----
-
-## Server setup (one-time, on a VM you control)
-
-A ready-to-deploy Docker Compose stack lives in [`server/`](./server/) next to
-this skill — **dufs** (authenticated HTTP `PUT` uploads) behind **Caddy** (auto
-TLS + bearer-gated writes, public reads). On a fresh DigitalOcean droplet (or any
-VM) with Docker:
-
-```bash
-cd server
-cp .env.example .env     # set EVIDENCE_DOMAIN + a strong EVIDENCE_TOKEN
-docker compose up -d
-```
-
-See [`server/README.md`](./server/README.md) for the full walkthrough,
-verification curls, and operating notes. Key points:
-
-- **TLS without a domain:** Caddy needs a DNS name for a Let's Encrypt cert
-  (camo rejects self-signed). Bare IP only? Use the `nip.io` trick — set
-  `EVIDENCE_DOMAIN=evidence.<dashed-ip>.nip.io` (e.g. `evidence.203-0-113-7.nip.io`).
-- **Privacy:** writes need the token; reads are public-but-unguessable (random
-  path component) so camo can render them. That tradeoff is inherent to
-  embedding images in Markdown — a truly auth-gated URL would not render inline.
-- Then point the uploader at it: `EVIDENCE_BASE_URL=https://$EVIDENCE_DOMAIN`
-  and `EVIDENCE_AUTH="Bearer $EVIDENCE_TOKEN"`.
 
 ---
 

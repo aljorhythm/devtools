@@ -1,80 +1,88 @@
 #!/usr/bin/env bash
-# Upload a PR-evidence asset (screenshot / image / short clip) to a self-hosted
-# file server and print a Markdown image tag whose URL renders inline in a
-# GitHub or GitLab PR/MR.
+# Upload a PR-evidence asset (screenshot / image / short clip) to Cloudinary and
+# print a Markdown image tag whose URL renders inline in a GitHub/GitLab PR/MR —
+# including in PRIVATE repos (GitHub's camo proxy can fetch a Cloudinary
+# secure_url; it cannot fetch a private repo's …/raw/… link).
 #
-# Why self-hosted (not Cloudinary / catbox / committing to the repo):
-#   - You own the box, so the evidence stays PRIVATE on infrastructure you
-#     control — no third-party account, no public anonymous host.
-#   - It is still viewable from the PR: GitHub's image proxy (camo) only renders
-#     a URL it can fetch anonymously, so the server serves files back over HTTPS
-#     at a public-but-unguessable path. (Linking a PRIVATE repo's `…/raw/…` does
-#     NOT render in a private-repo PR — camo can't read it.)
-#   - It supports archiving: every upload is a real file in a directory tree you
-#     can browse / back up forever.
+# Credentials come from the ENVIRONMENT — never inlined, never committed.
+# Two modes (pick one):
 #
-# Why a header token (not SSH): uploads often run from CI/sandboxes where
-# outbound SSH (port 22) is blocked but HTTPS (443) is allowed. A hardcoded
-# bearer-style token in the Authorization header is enough for this low-stakes,
-# write-only use. Any server that accepts an authenticated HTTP PUT works
-# (dufs, nginx WebDAV, Caddy, SFTPGo, …) — see the "Server setup" appendix in
-# SKILL.md for a one-command DigitalOcean/VM recipe.
+#   Signed (uses your API key + secret):
+#     CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET
+#
+#   Unsigned (uses an unsigned upload preset; no secret needed — preferred if you
+#   don't want the secret in the environment at all):
+#     CLOUDINARY_CLOUD_NAME, CLOUDINARY_UPLOAD_PRESET
+#
+# Optional:
+#   EVIDENCE_FOLDER   target folder in your Cloudinary account (default: pr-evidence)
 #
 # Usage:
-#   upload-evidence.sh <file> [caption] [dest-subpath]
+#   upload-evidence.sh <file> [caption] [folder]
 #
 # Output (stdout): a Markdown image tag, e.g.
-#   ![Lobby hub](https://evidence.example.com/pr-evidence/20260622-a1b2c3-lobby.png)
+#   ![Lobby hub](https://res.cloudinary.com/<cloud>/image/upload/v1/pr-evidence/lobby.png)
 #
-# Required env (set as environment secrets; never commit them):
-#   EVIDENCE_BASE_URL    upload endpoint base, e.g. https://evidence.example.com
-#   EVIDENCE_AUTH        full Authorization header value, e.g. "Bearer s3cr3t"
-# Optional env:
-#   EVIDENCE_PUBLIC_URL  base URL files are served from (default: EVIDENCE_BASE_URL)
-#   EVIDENCE_DEST_DIR    default subdirectory (default: pr-evidence)
-#
-# Requires: curl
+# Requires: curl, python3, and (signed mode only) openssl.
 set -euo pipefail
 
 FILE="${1:-}"
 CAPTION="${2:-screenshot}"
-DEST="${3:-}"
+FOLDER="${3:-${EVIDENCE_FOLDER:-pr-evidence}}"
 
 if [[ -z "$FILE" ]]; then
-  echo "Usage: $0 <file> [caption] [dest-subpath]" >&2
+  echo "Usage: $0 <file> [caption] [folder]" >&2
   exit 1
 fi
 if [[ ! -f "$FILE" ]]; then
   echo "Error: file not found: $FILE" >&2
   exit 1
 fi
-if [[ -z "${EVIDENCE_BASE_URL:-}" || -z "${EVIDENCE_AUTH:-}" ]]; then
-  echo "Error: set EVIDENCE_BASE_URL and EVIDENCE_AUTH in the env." >&2
-  echo "  EVIDENCE_BASE_URL=https://evidence.example.com" >&2
-  echo "  EVIDENCE_AUTH='Bearer <token>'   # full Authorization header value" >&2
+if [[ -z "${CLOUDINARY_CLOUD_NAME:-}" ]]; then
+  echo "Error: set CLOUDINARY_CLOUD_NAME in the env." >&2
   exit 1
 fi
 
-# Build a collision-free, unguessable destination path unless one was given.
-# A date prefix keeps the archive browsable in time order; a short random token
-# makes the URL unguessable so camo can fetch it but it isn't enumerable.
-if [[ -z "$DEST" ]]; then
-  dir="${EVIDENCE_DEST_DIR:-pr-evidence}"
-  base="$(basename "$FILE")"
-  rand="$(head -c8 /dev/urandom | od -An -tx1 | tr -d ' \n' | cut -c1-6)"
-  DEST="${dir}/$(date +%Y%m%d)-${rand}-${base}"
-fi
+ENDPOINT="https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/auto/upload"
 
-UPLOAD_URL="${EVIDENCE_BASE_URL%/}/${DEST}"
-
-# PUT uploads the file as-is. -f makes curl fail (non-zero) on HTTP errors so the
-# caller doesn't get a Markdown tag pointing at a failed upload.
-if ! curl -fsS --max-time 60 -T "$FILE" \
-      -H "Authorization: ${EVIDENCE_AUTH}" \
-      "$UPLOAD_URL" >/dev/null; then
-  echo "Error: upload failed (auth, network, or server). URL: $UPLOAD_URL" >&2
+if [[ -n "${CLOUDINARY_UPLOAD_PRESET:-}" ]]; then
+  # --- Unsigned upload: no secret involved. ---
+  RESP=$(curl -sf --max-time 60 "$ENDPOINT" \
+    -F "file=@${FILE}" \
+    -F "folder=${FOLDER}" \
+    -F "upload_preset=${CLOUDINARY_UPLOAD_PRESET}") || {
+    echo "Error: unsigned upload failed (network/policy or bad preset)." >&2
+    exit 1
+  }
+elif [[ -n "${CLOUDINARY_API_KEY:-}" && -n "${CLOUDINARY_API_SECRET:-}" ]]; then
+  # --- Signed upload: sign the (alphabetically sorted) params with the secret. ---
+  # Signature = sha1( "folder=<f>&timestamp=<ts>" + api_secret ), hex.
+  TS=$(date +%s)
+  TO_SIGN="folder=${FOLDER}&timestamp=${TS}"
+  SIG=$(printf '%s' "${TO_SIGN}${CLOUDINARY_API_SECRET}" | openssl sha1 | awk '{print $NF}')
+  RESP=$(curl -sf --max-time 60 "$ENDPOINT" \
+    -F "file=@${FILE}" \
+    -F "folder=${FOLDER}" \
+    -F "timestamp=${TS}" \
+    -F "api_key=${CLOUDINARY_API_KEY}" \
+    -F "signature=${SIG}") || {
+    echo "Error: signed upload failed (network/policy or bad credentials)." >&2
+    exit 1
+  }
+else
+  echo "Error: set CLOUDINARY_UPLOAD_PRESET (unsigned) OR CLOUDINARY_API_KEY + CLOUDINARY_API_SECRET (signed)." >&2
   exit 1
 fi
 
-PUBLIC="${EVIDENCE_PUBLIC_URL:-$EVIDENCE_BASE_URL}"
-echo "![${CAPTION}](${PUBLIC%/}/${DEST})"
+URL=$(printf '%s' "$RESP" | python3 -c "import json,sys
+try:
+    print(json.load(sys.stdin)['secure_url'])
+except Exception:
+    pass")
+
+if [[ -z "$URL" ]]; then
+  echo "Error: no secure_url in response: $RESP" >&2
+  exit 1
+fi
+
+echo "![${CAPTION}](${URL})"
