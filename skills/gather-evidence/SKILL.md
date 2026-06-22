@@ -134,45 +134,28 @@ directly in the PR body as a fenced code block.
 
 ## Server setup (one-time, on a VM you control)
 
-Any server that accepts an authenticated HTTP `PUT` and serves the file back
-over HTTPS works. The simplest is [`dufs`](https://github.com/sigoden/dufs) (a
-single static-file server with `--allow-upload` and bearer/basic auth) behind a
-reverse proxy that terminates TLS. On a fresh DigitalOcean droplet (or any VM)
-with Docker:
-
-```yaml
-# docker-compose.yml
-services:
-  dufs:
-    image: sigoden/dufs
-    command: /data --allow-upload --auth-method bearer
-    environment:
-      # token clients send as: Authorization: Bearer <token>
-      DUFS_AUTH: "<token>@/:rw"
-    volumes:
-      - ./data:/data            # the archive lives here — back this up
-    restart: unless-stopped
-
-  caddy:
-    image: caddy:2
-    ports: ["443:443", "80:80"]
-    command: caddy reverse-proxy --from evidence.example.com --to dufs:5000
-    restart: unless-stopped
-```
+A ready-to-deploy Docker Compose stack lives in [`server/`](./server/) next to
+this skill — **dufs** (authenticated HTTP `PUT` uploads) behind **Caddy** (auto
+TLS + bearer-gated writes, public reads). On a fresh DigitalOcean droplet (or any
+VM) with Docker:
 
 ```bash
+cd server
+cp .env.example .env     # set EVIDENCE_DOMAIN + a strong EVIDENCE_TOKEN
 docker compose up -d
 ```
 
+See [`server/README.md`](./server/README.md) for the full walkthrough,
+verification curls, and operating notes. Key points:
+
 - **TLS without a domain:** Caddy needs a DNS name for a Let's Encrypt cert
-  (GitHub camo rejects self-signed). If you only have a bare IP, use the
-  `nip.io` trick — point `--from` at `evidence.<your-ip>.nip.io` (e.g.
-  `evidence.203-0-113-7.nip.io`) and it resolves to that IP with a valid cert.
-- **Privacy:** uploads need the token; reads are public-but-unguessable (random
+  (camo rejects self-signed). Bare IP only? Use the `nip.io` trick — set
+  `EVIDENCE_DOMAIN=evidence.<dashed-ip>.nip.io` (e.g. `evidence.203-0-113-7.nip.io`).
+- **Privacy:** writes need the token; reads are public-but-unguessable (random
   path component) so camo can render them. That tradeoff is inherent to
   embedding images in Markdown — a truly auth-gated URL would not render inline.
-- Point `EVIDENCE_BASE_URL` / `EVIDENCE_PUBLIC_URL` at the `--from` host and set
-  `EVIDENCE_AUTH='Bearer <token>'`.
+- Then point the uploader at it: `EVIDENCE_BASE_URL=https://$EVIDENCE_DOMAIN`
+  and `EVIDENCE_AUTH="Bearer $EVIDENCE_TOKEN"`.
 
 ---
 
