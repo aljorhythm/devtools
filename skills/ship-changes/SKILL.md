@@ -287,6 +287,13 @@ git push -u origin HEAD
 
 ---
 
+## Contributing
+
+Improvements to this skill should be raised as a PR against the `master` branch
+of [`aljorhythm/devtools`](https://github.com/aljorhythm/devtools).
+
+---
+
 ## Related Skills
 
 - **Commit message generation**: Use `/commit-message` skill to format properly
