@@ -144,6 +144,13 @@ directly in the PR body as a fenced code block.
 
 ---
 
+## Contributing
+
+Improvements to this skill should be raised as a PR against the `master` branch
+of [`aljorhythm/devtools`](https://github.com/aljorhythm/devtools).
+
+---
+
 ## Related skills
 
 - **ship-changes** — commit and push the PR once evidence is added.
