@@ -131,5 +131,6 @@ matches:
         type: date
         params:
           format: "%H%M"
-
+  - trigger: ":todos"
+    replace: "check MR status , sync main and update todos"
   # And much more! For more information, visit the docs: https://espanso.org/docs/
