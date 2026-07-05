@@ -82,13 +82,16 @@ npx playwright screenshot --viewport-size=1280,800 http://localhost:4173 .screen
 >
 > ```bash
 > npm install --prefix /tmp/pw playwright-core
-> ls /opt/pw-browsers          # find the chromium-<rev> dir (version varies)
+> ls /opt/pw-browsers          # find the chromium-<rev> dir (rev varies; leaf is
+>                              # chrome-linux, NOT chrome-linux64). The default
+>                              # headless build may be absent, so executablePath
+>                              # is required.
 > ```
 > ```js
 > // CJS; from an ESM .mjs use: import pw from '…'; const { chromium } = pw
 > const { chromium } = require('/tmp/pw/node_modules/playwright-core')
 > const browser = await chromium.launch({
->   executablePath: '/opt/pw-browsers/chromium-<rev>/chrome-linux64/chrome',
+>   executablePath: '/opt/pw-browsers/chromium-<rev>/chrome-linux/chrome',
 >   args: ['--no-sandbox'],
 > })
 > const page = await browser.newPage({ viewport: { width: 1280, height: 800 } })
@@ -127,10 +130,27 @@ await page.addInitScript(() => {
 })
 ```
 
+> The `members` payload shape above is **illustrative**. Match your app's actual
+> WS message schema (field names, nesting) and replay any messages/HTTP fetches
+> the UI waits on before it renders, or the capture comes up blank — e.g. an app
+> may key members by `userId`/`roomMemberId` with a nested `avatar` object and
+> fetch `/api/rooms/:id/me` before the room renders.
+
 ## Uploading and adding to the PR
 
 Credentials come from the **environment** — never inline them in a script or
 commit them. Pick one of two modes:
+
+> **Secrets in Doppler?** In repos that centralize shared tokens in Doppler
+> (e.g. a `/setup-secrets` step), the `CLOUDINARY_*` vars are **not** in the
+> ambient environment — `env | grep CLOUDINARY` is empty. Don't `export` them;
+> prefix the uploader with `doppler run --` so they're injected per-call:
+>
+> ```bash
+> doppler run -- bash "$SKILL_DIR/scripts/upload-evidence.sh" shot.png "caption" folder
+> ```
+>
+> Without the wrapper it fails with `Error: set CLOUDINARY_CLOUD_NAME in the env`.
 
 ```bash
 export CLOUDINARY_CLOUD_NAME=<cloud>
@@ -154,6 +174,11 @@ export CLOUDINARY_API_SECRET=<secret>
 Each call verifies the asset is a public `200 image/*` (aborting if not — a
 private/misconfigured upload silently fails to render) and prints a Markdown
 image tag. A third arg overrides the Cloudinary folder.
+
+**Paste the `![…](…)` tag verbatim — keep the leading `!`.** `![alt](url)` embeds
+the image; `[alt](url)` (no `!`) is only a clickable link and will **not** render
+inline — this holds inside Markdown tables too. For explicit sizing, the HTML
+form `<img src="<secure_url>" width="480">` also renders (camo proxies it).
 
 ### Put the evidence in the PR/MR DESCRIPTION, not a comment
 
