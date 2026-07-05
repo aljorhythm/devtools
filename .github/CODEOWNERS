@@ -1,0 +1,5 @@
+# Code owners for this repository.
+# Owners are automatically requested for review on PRs that touch code they own.
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+* @aljorhythm
