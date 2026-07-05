@@ -85,4 +85,19 @@ if [[ -z "$URL" ]]; then
   exit 1
 fi
 
+# Verify the asset is PUBLICLY fetchable as an image — exactly what a PR/MR image
+# proxy (GitHub camo, GitLab) needs. A private/authenticated asset returns 401/403
+# here and would silently fail to render in the PR; catch it now instead.
+read -r CODE CTYPE < <(curl -fsSL -o /dev/null -w '%{http_code} %{content_type}\n' --max-time 30 "$URL" 2>/dev/null || echo "000 -")
+if [[ "$CODE" != "200" || "$CTYPE" != image/* ]]; then
+  echo "Error: uploaded asset is not publicly renderable (HTTP $CODE, type ${CTYPE:-none})." >&2
+  echo "  URL: $URL" >&2
+  echo "  It must deliver as a PUBLIC Cloudinary 'upload' asset (not authenticated/private)." >&2
+  exit 1
+fi
+
+# Canonical form: Markdown `![]()` on its OWN line — never inside a table cell or
+# a list item; burying an image in a table is the most common reason a valid URL
+# silently fails to render in a PR/MR. Do NOT use a raw <img> tag on GitHub — it
+# gets HTML-escaped and shows as literal text (GitLab renders <img> fine).
 echo "![${CAPTION}](${URL})"
