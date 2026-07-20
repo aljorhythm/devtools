@@ -15,3 +15,4 @@ dev
 .vscode
 *.hprof
 .airboard-token
+*.temp
